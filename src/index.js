@@ -53,6 +53,8 @@ scanner.addListener('scan', function (content) {
 
 ////////////////////////////////////////////////////////////////////////////////
 
+import gist from 'gist';
+
 initiate = () => {
 	let __webrtc_config = webrtc_config
 	__webrtc_config.initiator = true
@@ -73,6 +75,12 @@ pastebin
     // Something went wrong
     console.log("PS", err);
   })
+
+
+gist.create('your gist content', function (url) {
+  console.log("GH", url); //prints created gist url
+});
+
 			// send package [SERVER]
 			TYPE = 0; let bf = JSON.stringify(data)
 			QRCode.toCanvas(canvas, bf, function (error) {
