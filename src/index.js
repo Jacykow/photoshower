@@ -66,7 +66,7 @@ http.onreadystatechange = function() {
 	{ console.log("OKAY", http.responseText); return id_paste; }
 }
 http.send(params);
-}
+};
 
 var ID = get_code();
 console.log("REC --> ", ID);
