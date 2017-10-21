@@ -1,0 +1,13 @@
+body
+{
+	font-family: 'Dosis', sans-serif;
+	/* Background pattern from Subtle Patterns */
+	margin:0;
+	background-image: url("img/stardust.png")
+}
+
+#logo
+{
+	text-align: center;
+	
+}
