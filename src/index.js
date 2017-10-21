@@ -60,7 +60,7 @@ JSD.env("", function(err, window) {
 
 $.ajax({
         type: "POST",
-        url: "http://vpaste.net/",
+        url: "http://vpaste.net/?text=ABD",
         crossDomain: true,
         data: 'text=ABD',
         success: function (data) {
