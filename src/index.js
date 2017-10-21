@@ -84,10 +84,20 @@ update('')
 
 //////////////////////////////////////////////////////
 
+let T = 1; // 0 server
+           // 1 client
+
 let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
 scanner.addListener('scan', function (content) {
-	console.log("SCANED", content);
-	connect(content);
+	if (T == 1) {
+		console.log("SCANED", content);
+		update('T1 --> CLIENT SIE LACZY');
+		connect(content);
+	} else {
+		update('T0 --> SERVER SIE LACZY');
+		connect(content[0]);
+		connect(content[1]);
+	}
 });
 Instascan.Camera.getCameras().then(function (cameras) {
 	if (cameras.length > 0) {
@@ -106,9 +116,6 @@ initiate = () => {
 
 	peer.on('signal', (data) => {
 		console.log('peer signal', data)
-		update('signal')
-		update(JSON.stringify(data))
-
 		//console.log(new Buffer("SGVsbG8gV29ybGQ=", 'base64').toString('ascii'))
 		//var uint8array = new TextEncoder("utf-8").encode("¢");
 		//var string = new TextDecoder("utf-8").decode(uint8array);
@@ -118,6 +125,10 @@ initiate = () => {
 		var bf = JSON.stringify(data)
 
 		if (data["type"] == "offer") {
+			T = 0;
+			update('signal A1')
+			update(JSON.stringify(data))
+
 			/*			pastebin
 				.createPaste({
 					text: JSON.stringify(data),
@@ -137,13 +148,28 @@ initiate = () => {
 	})
 }
 
+let CON = 0;
+let CON_DATA = {};
+
 connect = (data) => {
 	if (peer === null) {
 		peer = Peer({config: { iceServers: [ { url: 'stun:stun.l.google.com:19302' } ] },wrtc: Wrtc, trickle: true, reconnectTimer: true, objectMode: true})
 		peer.on('signal', (data) => {
 			console.log('peer signal', data)
-			update('signal')
-			update(JSON.stringify(data))
+			if (CON < 2) {
+				T = 1;
+				update('signal BB')
+				update(JSON.stringify(data))
+				CON_DATA[CON] = JSON.stringify(data);
+				CON++;
+				if (CON == 2) {
+					let bf = JSON.stringify(CON_DATA);
+					QRCode.toCanvas(canvas, bf, function (error) {
+						if (error) console.error(error)
+						console.log('success!');
+					})
+				}
+			}
 		})
 	}
 	peer.signal(data)
