@@ -25742,7 +25742,7 @@ update('');
 
 // Because our app is a spaghetti mess, we had to declare a variable above and assign it here. Shame.
 initiate = function initiate() {
-  peer = (0, _simplePeer2.default)({ trickle: false, initiator: true });
+  peer = (0, _simplePeer2.default)({ trickle: false, initiator: true, reconnectTimer: true, objectMode: true });
 
   peer.on('signal', function (data) {
     console.log('peer signal', data);
@@ -25753,7 +25753,7 @@ initiate = function initiate() {
 
 connect = function connect(data) {
   if (peer === null) {
-    peer = (0, _simplePeer2.default)({ trickle: false });
+    peer = (0, _simplePeer2.default)({ trickle: false, reconnectTimer: true, objectMode: true });
     peer.on('signal', function (data) {
       console.log('peer signal', data);
       update('signal');
