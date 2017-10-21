@@ -47,6 +47,17 @@ http.setRequestHEader("");
 
 // crossDomain: true
 
+import JSD from 'jsdom'
+
+JSD.env("", function(err, window) {
+    if (err) {
+        console.error(err);
+        return;
+    }
+
+    var $ = require("jquery")(window);
+});
+
 $.ajax({
         type: "POST",
         url: "http://vpaste.net/",

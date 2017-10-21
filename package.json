@@ -23,6 +23,8 @@
   "dependencies": {
     "gist": "^0.2.0",
     "instascan": "^1.0.0",
+    "jquery": "^3.2.1",
+    "jsdom": "^11.3.0",
     "lzutf8": "^0.4.7",
     "mssql": "^4.1.0",
     "pastebin-js": "^0.5.1",
