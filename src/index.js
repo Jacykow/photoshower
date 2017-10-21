@@ -48,7 +48,7 @@ base64.decode = function (encoded) {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-get_code = function () {
+//get_code = function () {
 var http = new XMLHttpRequest();
 var url = "http://dpaste.com/api/v2/";
 var params = "content=ABC1234"; // tutaj json
@@ -63,13 +63,13 @@ http.onreadystatechange = function() {
 	var id_paste = http.responseText.replace("http://dpaste.com/", "");
 	console.log("ID", id_paste, http.status, http.readyState);
 	if(http.readyState == 4 && http.status == 201)
-	{ console.log("OKAY", http.responseText); return id_paste; }
+	{ console.log("OKAY", http.responseText); }
 }
 http.send(params);
-};
+//};
 
-var ID = get_code();
-console.log("REC --> ", ID);
+//var ID = get_code();
+//console.log("REC --> ", ID);
 
 ////////////////////////////////////////////////////////////////////////////////
 
