@@ -59,6 +59,7 @@ body{
 }	
 #copy_file{
 	width:calc(50% - 15px);
+	border: 4px dotted black;
 	height:120%;
 	display: inline-block;
 	margin-left:auto;
@@ -70,6 +71,10 @@ body{
 	width:calc(50% - 15px);
 	display: inline-block;
 	}
+#generate_text{
+	color:#212121;
+	padding-top:20px;
+}
 #begin_button{
 	margin-top:10%;
 	margin-bottom:10%;
