@@ -8,6 +8,25 @@ import Peer from 'simple-peer'
 import React, { createElement } from 'react'
 import { render } from 'react-dom'
 
+import sql from 'mssql'
+
+/*
+photoshowerdb.database.windows.net
+dbmaster
+3xfcuTS8cMYakE8t
+
+*/
+
+async () => {
+    try {
+        const pool = await sql.connect('mssql://dbmaster:3xfcuTS8cMYakE8t@photoshowerdb.database.windows.net/photoshowerdb')
+        const result = await sql.query`select * from Messages`
+        console.dir("OKAY", result)
+    } catch (err) {
+        // ... error checks
+    }
+}
+
 //===[SCANNER]
 let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
 var canvas = document.getElementById('canvas') // QR code (display mode)
