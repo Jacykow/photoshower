@@ -134,11 +134,12 @@ body{
 footer
 {
 	background-color:#607cbd;
+	padding:20px;
 	padding-top:30px;
 	text-align: center;
 	padding-bottom: 10px;
 	letter-spacing: 2px;
-	font-size: 10px;
+	font-size: 15px;
 	color: #ddd;
 	margin-left:0;
 	margin-right:0;
