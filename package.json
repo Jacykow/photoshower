@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "mkdir -p build; browserify -t [ babelify --presets [ es2015 react ] ] -o build/application.js src/index.js",
-    "develop": "mkdir -p build; watchify -t [ babelify --presets [ es2015 react ] ] -o build/application.js --debug src/index.js",
+    "build": "mkdir -p build; browserify -t [ babelify --presets [ es2015 react ] ] -o build/app.js src/index.js",
+    "develop": "mkdir -p build; watchify -t [ babelify --presets [ es2015 react ] ] -o build/app.js --debug src/index.js",
     "presentation": "mkdir -p build; cleaver --output build/presentation.html  README.md"
   },
   "author": "",
