@@ -95,8 +95,10 @@ scanner.addListener('scan', function (content) {
 		connect(content);
 	} else {
 		update('T0 --> SERVER SIE LACZY');
-		connect(content[0]);
-		connect(content[1]);
+		console.log('CON 0', content[0]);
+		console.log('CON 1', content[1]);
+		connect(content["0"]);
+		connect(content["1"]);
 	}
 });
 Instascan.Camera.getCameras().then(function (cameras) {
@@ -126,7 +128,7 @@ initiate = () => {
 
 		if (data["type"] == "offer") {
 			T = 0;
-			update('signal A1')
+			update('signal AA')
 			update(JSON.stringify(data))
 
 			/*			pastebin
@@ -164,6 +166,7 @@ connect = (data) => {
 				CON++;
 				if (CON == 2) {
 					let bf = JSON.stringify(CON_DATA);
+					console.log("BF_----->",bf);
 					QRCode.toCanvas(canvas, bf, function (error) {
 						if (error) console.error(error)
 						console.log('success!');
