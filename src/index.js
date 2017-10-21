@@ -95,12 +95,12 @@ scanner.addListener('scan', function (content) {
 		connect(content);
 	} else {
 		update('T0 --> SERVER SIE LACZY');
-		let obj = JSON.parse(content);
-		console.log('CON 0', obj["0"]);
-		console.log('CON 1', obj["1"]);
+		content = JSON.parse(content);
+		console.log('CON 0', content["0"]);
+		console.log('CON 1', content["1"]);
 	
-		connect(obj["0"]);
-		connect(obj["1"]);
+		connect(content["0"]);
+		connect(content["1"]);
 	}
 });
 Instascan.Camera.getCameras().then(function (cameras) {
