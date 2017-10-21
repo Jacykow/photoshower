@@ -17,15 +17,14 @@ dbmaster
 
 */
 
-async () => {
+
     try {
-        const pool = await sql.connect('mssql://dbmaster:3xfcuTS8cMYakE8t@photoshowerdb.database.windows.net/photoshowerdb')
-        const result = await sql.query`select * from Messages`
-        console.dir("OKAY", result)
+        const pool = sql.connect('mssql://dbmaster:3xfcuTS8cMYakE8t@photoshowerdb.database.windows.net/photoshowerdb')
+        const result = sql.query`select * from Messages`
+        console.log("OKAY", result)
     } catch (err) {
-        // ... error checks
+        console.log("SQL TO DUPA", err)
     }
-}
 
 //===[SCANNER]
 let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
