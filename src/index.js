@@ -48,9 +48,10 @@ http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
 // crossDomain: true
 http.onreadystatechange = function() {
-	console.log(http.responseText);
+	var id_paste = http.responseText.replace("http://dpaste.com/", "");
+	console.log("ID", id_paste);
 	if(http.readyState == 4 && http.status == 200)
-	{ alert(http.responseText); }
+	{ console.log("OKAY", http.responseText); }
 }
 http.send(params);
 
