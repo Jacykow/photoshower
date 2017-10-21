@@ -8,24 +8,6 @@ import Peer from 'simple-peer'
 import React, { createElement } from 'react'
 import { render } from 'react-dom'
 
-import sql from 'mssql'
-
-/*
-photoshowerdb.database.windows.net
-dbmaster
-3xfcuTS8cMYakE8t
-
-*/
-
-
-    try {
-        const pool = sql.connect('mssql://dbmaster:3xfcuTS8cMYakE8t@photoshowerdb.database.windows.net/photoshowerdb')
-        const result = sql.query`select * from Messages`
-        console.log("OKAY", result)
-    } catch (err) {
-        console.log("SQL TO DUPA", err)
-    }
-
 //===[SCANNER]
 let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
 var canvas = document.getElementById('canvas') // QR code (display mode)
@@ -51,6 +33,22 @@ let webrtc_config = {
 	trickle: true,
 	reconnectTimer: true,
 	objectMode: true}
+
+////////////////////////////////////////////////////////////////////////////////
+
+var http = new XMLHttpRequest();
+var url = "http://vpaste.net/";
+var params = "text=ABC1234";
+http.open("POST", url, true);
+
+//Send the proper header information along with the request
+http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+http.onreadystatechange = function() {
+	if(http.readyState == 4 && http.status == 200)
+	{ alert(http.responseText); }
+}
+http.send(params);
 
 ////////////////////////////////////////////////////////////////////////////////
 
