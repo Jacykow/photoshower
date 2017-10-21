@@ -1,0 +1,28 @@
+{
+  "name": "p2p-chat",
+  "version": "1.0.0",
+  "description": "Real time react p2p chat",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "mkdir -p build; browserify -t [ babelify --presets [ es2015 react ] ] -o build/application.js src/index.js",
+    "develop": "mkdir -p build; watchify -t [ babelify --presets [ es2015 react ] ] -o build/application.js --debug src/index.js",
+    "presentation": "mkdir -p build; cleaver --output build/presentation.html  README.md"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babelify": "^7.3.0",
+    "browserify": "^13.3.0",
+    "cleaver": "^0.8.2",
+    "simple-peer": "^6.4.4",
+    "watchify": "^3.9.0"
+  },
+  "dependencies": {
+    "qrcode": "^0.9.0",
+    "react": "^0.14.9",
+    "react-dom": "^0.14.9"
+  }
+}
