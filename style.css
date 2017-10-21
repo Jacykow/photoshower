@@ -19,7 +19,7 @@ header
 
 #logo_foto
 {
-	padding:20px;
+	
 	
 	
 }
@@ -50,17 +50,40 @@ main
 
 .box
 {
-	 /* border:1px solid black; */
 	display:inline-block;
+	font-size: 30px;
+	font-weight:700;
+	transition-property: all;
+	transition-duration: 400ms;
+	margin-left:15px;
+	margin-right:15px;
 		
+}
+
+.box:hover
+{
+	background-color:#616161;
+	
 }
 
 .category_foto
 {
 	width:80%;
 	height:80%;
+	op
 	
 }
+
+
+
+.category_foto:hover
+{
+	
+	
+}
+
+
+
 
 #info
 {
@@ -79,6 +102,7 @@ main
 #text_info
 {
 	padding-top:20px;
+	padding-bottom:20px;
 	margin-left:15%;
 	margin-right:15%;
 }
