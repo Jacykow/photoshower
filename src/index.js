@@ -43,7 +43,7 @@ http.open("POST", url, true);
 
 //Send the proper header information along with the request
 http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-http.setRequestHEader("");
+//http.setRequestHEader("");
 
 // crossDomain: true
 
