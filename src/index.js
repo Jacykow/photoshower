@@ -26,7 +26,8 @@ var pastebin = new PastebinAPI({
 });
 
 //===[DEFAULTS]
-let peer = null, initiate = null, connect = null, signal_input = null
+let peer = null, initiate = null, connect = null,
+	signal_input = null, preconnect = null
 let webrtc_config = {
 	config: { iceServers: [ { url: 'stun:stun.l.google.com:19302' } ] },
 	wrtc: Wrtc,
@@ -48,11 +49,16 @@ base64.decode = function (encoded) {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-//get_code = function () {
+
+function get_code(data) {
+var ID_FINAL = "";
+	//get_code = function () {
+var data_base64 = new Buffer(data).toString('base64');
 var http = new XMLHttpRequest();
 var url = "http://dpaste.com/api/v2/";
-var params = "content=ABC1234"; // tutaj json
-http.open("POST", url, true);
+var params = "content="+data_base64; // tutaj json
+console.log("GET_CODE_CONTENT", params);
+http.open("POST", url, false);
 
 //Send the proper header information along with the request
 http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -63,9 +69,37 @@ http.onreadystatechange = function() {
 	var id_paste = http.responseText.replace("http://dpaste.com/", "");
 	console.log("ID", id_paste, http.status, http.readyState);
 	if(http.readyState == 4 && http.status == 201)
-	{ console.log("OKAY", id_paste); }
+	{ console.log("OKAY", id_paste); ID_FINAL = id_paste; }
 }
 http.send(params);
+return ID_FINAL;
+}
+
+function get_param(id) {
+// 13BPBRQ
+var PARAM_FINAL = "";
+	//get_code = function () {
+var http = new XMLHttpRequest();
+var url = "http://dpaste.com/" + id + ".txt";
+var params = "?our"; // tutaj json
+http.open("POST", url, false);
+
+//Send the proper header information along with the request
+http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+//http.setRequestHEader("");
+
+// crossDomain: true
+http.onreadystatechange = function() {
+	var param_paste = http.responseText;
+	console.log("HAVE", param_paste);
+	if(http.readyState == 4 && http.status == 201)
+	{ console.log("OKAY", param_paste); PARAM_FINAL = param_paste; }
+}
+http.send(params);
+console.log("WHAT", PARAM_FINAL);
+return new Buffer(PARAM_FINAL, 'base64').toString();
+}
+
 //};
 
 //var ID = get_code();
@@ -76,7 +110,19 @@ http.send(params);
 let TYPE = 1; // {0 - server; 1 - client}
 let CODES = 0, __DATA = {}; // data for client
 
-scanner.addListener('scan', function (content) {
+preconnect = (data) => {
+	if (TYPE == 1) {
+		update('T1 --> CLIENT SIE LACZY');
+		connect(data); // klient wybiera serwer
+	} else {
+		update('T0 --> SERVER SIE LACZY');
+		data = JSON.parse(data);
+		connect(data["0"]); // polacz sie z serwerem
+		connect(data["1"]); // polacz sie z TYM klientem
+	}
+}
+
+/*scanner.addListener('scan', function (content) {
 	if (TYPE == 1) {
 		update('T1 --> CLIENT SIE LACZY');
 		connect(content); // klient wybiera serwer
@@ -86,7 +132,7 @@ scanner.addListener('scan', function (content) {
 		connect(content["0"]); // polacz sie z serwerem
 		connect(content["1"]); // polacz sie z TYM klientem
 	}
-});
+});*/
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -100,34 +146,17 @@ initiate = () => {
 			update('signal AA') // debug
 			update(JSON.stringify(data))
 
-pastebin
-  .createPaste("Test from pastebin-js", "pastebin-js")
-  .then(function (data) {
-    // paste succesfully created, data contains the id
-    console.log("PS", data);
-  })
-  .fail(function (err) {
-    // Something went wrong
-    console.log("PS", err);
-  })
-
-			pastebin
-  .getPaste('76b2yNRt')
-  .then(function (data) {
-    // data contains the raw paste
-    console.log(data);
-  })
-  .fail(function (err) {
-    // Something went wrong
-    console.log(err);
-  })
+			let code = get_code(JSON.stringify(data));
+			console.log('CODE', code);
+			update('CODE --> ' + code);
 
 			// send package [SERVER]
-			TYPE = 0; let bf = JSON.stringify(data)
-			QRCode.toCanvas(canvas, bf, function (error) {
+			//TYPE = 0; let bf = JSON.stringify(data)
+			TYPE = 0; let bf = code;
+			/*QRCode.toCanvas(canvas, bf, function (error) {
 				if (error) console.error(error)
 				console.log('success!');
-			})
+			})*/
 		}
 	})
 }
@@ -146,11 +175,15 @@ connect = (data) => {
 				__DATA[CODES] = JSON.stringify(data);
 
 				if (CODES == 2) { // send package [CLIENT]
+					let code = get_code(JSON.stringify(data));
+					console.log('CODE', code);
+					update('CODE --> ' + code);
+
 					let bf = JSON.stringify(__DATA)
-					QRCode.toCanvas(canvas, bf, function (error) {
+					/*QRCode.toCanvas(canvas, bf, function (error) {
 						if (error) console.error(error)
 						console.log('success!');
-					})
+					})*/
 				}
 			}
 		})
@@ -185,7 +218,7 @@ const ConnectForm = () => (
 	placeholder = 'Enter signaling data here...'
 	/>
 	<button
-	onClick = { () => connect(signal_input.value) }
+	onClick = { () => preconnect(signal_input.value) }
 	>
 	Answer
 	</button>
