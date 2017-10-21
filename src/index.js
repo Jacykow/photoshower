@@ -37,7 +37,7 @@ let webrtc_config = {
 ////////////////////////////////////////////////////////////////////////////////
 
 var http = new XMLHttpRequest();
-var url = "http://vpaste.net/";
+var url = "http://vpaste.net/?text=ABDhttp";
 var params = "text=ABC1234";
 http.open("POST", url, true);
 
@@ -46,33 +46,6 @@ http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 //http.setRequestHEader("");
 
 // crossDomain: true
-
-import JSD from 'jsdom'
-
-JSD.env("", function(err, window) {
-    if (err) {
-        console.error(err);
-        return;
-    }
-
-    var $ = require("jquery")(window);
-});
-
-$.ajax({
-        type: "POST",
-        url: "http://vpaste.net/?text=ABD",
-        crossDomain: true,
-        data: 'text=ABD',
-        success: function (data) {
-			console.log("A");
-            // do something with server response data
-        },
-        error: function (err) {
-			console.log("E");
-            // handle your error logic here
-        }
-    });
-
 http.onreadystatechange = function() {
 	if(http.readyState == 4 && http.status == 200)
 	{ alert(http.responseText); }
