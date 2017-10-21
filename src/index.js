@@ -41,12 +41,14 @@ var url = "http://dpaste.com/api/v2/";
 var params = "content=ABC1234";
 http.open("POST", url, true);
 
+
 //Send the proper header information along with the request
 http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 //http.setRequestHEader("");
 
 // crossDomain: true
 http.onreadystatechange = function() {
+	console.log(http.responseText);
 	if(http.readyState == 4 && http.status == 200)
 	{ alert(http.responseText); }
 }
