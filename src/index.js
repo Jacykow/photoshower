@@ -36,11 +36,11 @@ let webrtc_config = {
 
 ////////////////////////////////////////////////////////////////////////////////
 
+
 var http = new XMLHttpRequest();
 var url = "http://dpaste.com/api/v2/";
-var params = "content=ABC1234";
+var params = "content=ABC1234"; // tutaj json
 http.open("POST", url, true);
-
 
 //Send the proper header information along with the request
 http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -49,7 +49,7 @@ http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 // crossDomain: true
 http.onreadystatechange = function() {
 	var id_paste = http.responseText.replace("http://dpaste.com/", "");
-	console.log("ID", id_paste);
+	console.log("ID", id_paste, http.status, http.readyState);
 	if(http.readyState == 4 && http.status == 200)
 	{ console.log("OKAY", http.responseText); }
 }
