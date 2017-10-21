@@ -74,9 +74,8 @@ const update = (message) => {
 }
 update('')
 
-// Because our app is a spaghetti mess, we had to declare a variable above and assign it here. Shame.
 initiate = () => {
-  peer = Peer({config: { iceServers: [ { url: 'stun:stun4.l.google.com:19302' } ] },wrtc: Wrtc, trickle: false, initiator: true, reconnectTimer: true, objectMode: true})
+  peer = Peer({config: { iceServers: [ { url: 'stun:stun.l.google.com:19302' } ] },wrtc: Wrtc, trickle: true, initiator: true, reconnectTimer: true, objectMode: true})
 
   peer.on('signal', (data) => {
     console.log('peer signal', data)
@@ -87,7 +86,7 @@ initiate = () => {
 
 connect = (data) => {
   if (peer === null) {
-    peer = Peer({config: { iceServers: [ { url: 'stun:stun4.l.google.com:19302' } ] },wrtc: Wrtc, trickle: false, reconnectTimer: true, objectMode: true})
+    peer = Peer({config: { iceServers: [ { url: 'stun:stun.l.google.com:19302' } ] },wrtc: Wrtc, trickle: true, reconnectTimer: true, objectMode: true})
     peer.on('signal', (data) => {
       console.log('peer signal', data)
       update('signal')
