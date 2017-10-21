@@ -63,7 +63,7 @@ http.onreadystatechange = function() {
 	var id_paste = http.responseText.replace("http://dpaste.com/", "");
 	console.log("ID", id_paste, http.status, http.readyState);
 	if(http.readyState == 4 && http.status == 201)
-	{ console.log("OKAY", http.responseText); }
+	{ console.log("OKAY", id_paste); }
 }
 http.send(params);
 //};
