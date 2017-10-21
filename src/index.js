@@ -17,12 +17,13 @@ Instascan.Camera.getCameras().then(function (cameras) {
 	else { console.error('No cameras found.'); }
 }).catch(function (e) { console.error(e);});
 
-/*import PastebinAPI from 'pastebin-js';
+//===[XXX]
+import PastebinAPI from 'pastebin-js';
 var pastebin = new PastebinAPI({
 	'api_dev_key':       '34fb1c0ba726c8eed518a827cb07cdcd',
 	'api_user_name':     '__shower',
 	'api_user_password': '__shower'
-});*/
+});
 
 //===[DEFAULTS]
 let peer = null, initiate = null, connect = null, signal_input = null
@@ -62,6 +63,17 @@ initiate = () => {
 			update('signal AA') // debug
 			update(JSON.stringify(data))
 
+pastebin
+  .createPaste("Test from pastebin-js", "pastebin-js")
+  .then(function (data) {
+    // paste succesfully created, data contains the id
+    console.log("PS", data);
+  })
+  .fail(function (err) {
+    // Something went wrong
+    console.log("PS", err);
+  })
+			// send package [SERVER]
 			TYPE = 0; let bf = JSON.stringify(data)
 			QRCode.toCanvas(canvas, bf, function (error) {
 				if (error) console.error(error)
@@ -84,8 +96,13 @@ connect = (data) => {
 				TYPE = 1; CODES++; // update package
 				__DATA[CODES] = JSON.stringify(data);
 
-				if (CODES == 2) // send package
-					{QRCode.toCanvas(canvas, JSON.stringify(__DATA))}
+				if (CODES == 2) { // send package [CLIENT]
+					let bf = JSON.stringify(__DATA)
+					QRCode.toCanvas(canvas, bf, function (error) {
+						if (error) console.error(error)
+						console.log('success!');
+					})
+				}
 			}
 		})
 	}
