@@ -62,13 +62,14 @@ http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 http.onreadystatechange = function() {
 	var id_paste = http.responseText.replace("http://dpaste.com/", "");
 	console.log("ID", id_paste, http.status, http.readyState);
-	if(http.readyState == 4 && http.status == 200)
-	{ console.log("OKAY", http.responseText); }
+	if(http.readyState == 4 && http.status == 201)
+	{ console.log("OKAY", http.responseText); return id_paste; }
 }
 http.send(params);
 }
 
-get_code();
+var ID = get_code();
+console.log("REC --> ", ID);
 
 ////////////////////////////////////////////////////////////////////////////////
 
