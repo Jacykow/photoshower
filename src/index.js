@@ -36,7 +36,19 @@ let webrtc_config = {
 
 ////////////////////////////////////////////////////////////////////////////////
 
+var base64 = exports;
 
+base64.encode = function (unencoded) {
+  return new Buffer(unencoded || '').toString('base64');
+};
+
+base64.decode = function (encoded) {
+  return new Buffer(encoded || '', 'base64').toString('utf8');
+};
+
+////////////////////////////////////////////////////////////////////////////////
+
+get_code = function () {
 var http = new XMLHttpRequest();
 var url = "http://dpaste.com/api/v2/";
 var params = "content=ABC1234"; // tutaj json
@@ -54,6 +66,9 @@ http.onreadystatechange = function() {
 	{ console.log("OKAY", http.responseText); }
 }
 http.send(params);
+}
+
+get_code();
 
 ////////////////////////////////////////////////////////////////////////////////
 
