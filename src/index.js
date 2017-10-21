@@ -4,14 +4,15 @@ import { render } from 'react-dom'
 
 import Wrtc from 'wrtc'
 import QRCode from 'qrcode'
+import Instascan from 'instascan';
 
-import PastebinAPI from 'pastebin-js';
-var pastebin = new PastebinAPI({
-      'api_dev_key' : '34fb1c0ba726c8eed518a827cb07cdcd',
-      'api_user_name' : '__shower',
-      'api_user_password' : '__shower'
-    });
-	
+//import PastebinAPI from 'pastebin-js';
+//var pastebin = new PastebinAPI({
+//     'api_dev_key' : '34fb1c0ba726c8eed518a827cb07cdcd',
+//   'api_user_name' : '__shower',
+// 'api_user_password' : '__shower'
+//  });
+
 let peer = null
 
 let initiate = null // This is an ugly hack!
@@ -83,6 +84,20 @@ update('')
 
 //////////////////////////////////////////////////////
 
+let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
+scanner.addListener('scan', function (content) {
+	console.log("SCANED", content);
+	connect(content);
+});
+Instascan.Camera.getCameras().then(function (cameras) {
+	if (cameras.length > 0) {
+		scanner.start(cameras[0]);
+	} else {
+		console.error('No cameras found.');
+	}
+}).catch(function (e) {
+	console.error(e);
+});
 
 ///////////////////////////////////////////////////////
 
@@ -103,21 +118,20 @@ initiate = () => {
 		var bf = JSON.stringify(data)
 
 		if (data["type"] == "offer") {
-			pastebin
+			/*			pastebin
 				.createPaste({
 					text: JSON.stringify(data),
 				}).then(function (data) {
-					// we have succesfully pasted it. Data contains the id
+		// we have succesfully pasted it. Data contains the id
 					console.log('TESTTEST', data);
 				}).fail(function (err) {
-        console.log('FAIL', err);
-    });
-
-			console.log('OFFER');
-			QRCode.toCanvas(canvas, bf, function (error) {
-				if (error) console.error(error)
-				console.log('success!');
-			})
+		console.log('FAIL', err);
+	});*/
+		console.log('OFFER');
+		QRCode.toCanvas(canvas, bf, function (error) {
+			if (error) console.error(error)
+			console.log('success!');
+		})
 		}
 		console.log('>>> ', data, canvas, QRCode)
 	})
