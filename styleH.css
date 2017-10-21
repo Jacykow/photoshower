@@ -60,7 +60,7 @@ body{
 #copy_file{
 	padding-top:2px;
 	padding-bottom:2px;
-	width:calc(50% - 40px);
+	width:calc(50% - 15px);
 	display: inline-block;
 	text-align:center;
 	border-radius: 0px 156px 0px 0px;
