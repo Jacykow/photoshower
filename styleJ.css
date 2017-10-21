@@ -19,14 +19,15 @@ header
 #container
 {
 	text-align:center;
-	padding:10%;
+	padding:5%;
+	
 
 
 }
 
 #scan
 {
-	display:inline-block;
+	
 	font-size:30px;
 	border-radius: 48px 48px 48px 48px;
 -moz-border-radius: 48px 48px 48px 48px;
@@ -34,6 +35,8 @@ header
 border: 0px solid #000000;
 	background-color:white;
 	padding:20px;
+	display:inline-block;
+
 	
 	
 
@@ -51,6 +54,7 @@ border: 0px solid #000000;
 	padding:20px;
 	margin-left:6%;
 	margin-right:6%;
+	overflow: hidden;
 	
 	
 	
@@ -66,6 +70,7 @@ border: 0px solid #000000;
 border: 0px solid #000000;
 	background-color:white;
 	padding:20px;
+	overflow: hidden;
 	
 }
 
