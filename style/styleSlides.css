@@ -51,6 +51,7 @@ body, html {
     left: 50%;
 	overflow:hidden;
 	z-index: 1000;
+	width:420px;
 }
 .button {
 	float:left;
@@ -83,6 +84,9 @@ body, html {
 }
 #colors {
 	float:left;
+}
+#preview {
+	background-image: url('../assets/img/preview.png');
 }
 .color {
 	width:16px;
