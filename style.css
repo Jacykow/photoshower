@@ -2,14 +2,15 @@ body
 {
 	font-family: 'Dosis', sans-serif;
 	/* Background pattern from Subtle Patterns */
-	background-image: url("img/stardust.png");
+	background-image: url("img/escheresque.png");
+	
 	margin:0;
 }
 
 header
 {
 	text-align: center;
-	background-color:#b7b7b7;
+	background-color:#757575  ;
 	margin-left:auto;
 	margin-right:auto;
 
@@ -36,7 +37,7 @@ main
 	text-align:center;
 	font-size: 20px;
 	font-weight: 700;
-	color: #ddd;
+	color: black;
 	margin-top: 20px;
 	margin-bottom:20px;
 }
@@ -70,7 +71,7 @@ main
 	letter-spacing: 2px;
 	font-size: 20px;
 	color: #ddd;
-	background-color:#353535;
+	background-color:#757575;
 	height:200px;
 	
 }
@@ -84,7 +85,7 @@ main
 
 footer
 {
-	background-color:black;
+	background-color:#212121;
 	
 	padding-top:30px;
 	margin-left:auto;
