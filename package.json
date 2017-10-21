@@ -23,6 +23,7 @@
   "dependencies": {
     "qrcode": "^0.9.0",
     "react": "^0.14.9",
-    "react-dom": "^0.14.9"
+    "react-dom": "^0.14.9",
+    "wrtc": "0.0.62"
   }
 }

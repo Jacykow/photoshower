@@ -25635,6 +25635,15 @@ function config (name) {
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],187:[function(require,module,exports){
+var RTCIceCandidate       = window.mozRTCIceCandidate       || window.webkitRTCIceCandidate       || window.RTCIceCandidate;
+var RTCPeerConnection     = window.mozRTCPeerConnection     || window.webkitRTCPeerConnection     || window.RTCPeerConnection;
+var RTCSessionDescription = window.mozRTCSessionDescription || window.webkitRTCSessionDescription || window.RTCSessionDescription;
+
+exports.RTCIceCandidate       = RTCIceCandidate;
+exports.RTCPeerConnection     = RTCPeerConnection;
+exports.RTCSessionDescription = RTCSessionDescription;
+
+},{}],188:[function(require,module,exports){
 'use strict';
 
 var _simplePeer = require('simple-peer');
@@ -25647,9 +25656,17 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactDom = require('react-dom');
 
+var _wrtc = require('wrtc');
+
+var _wrtc2 = _interopRequireDefault(_wrtc);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// var pc = new RTCPeerConnection({iceServers: [{url: "stun:stun.services.mozilla.com"}]});
+
 var peer = null;
+//var wrtc = require('wrtc')
+
 
 var initiate = null; // This is an ugly hack!
 var connect = null;
@@ -25742,7 +25759,7 @@ update('');
 
 // Because our app is a spaghetti mess, we had to declare a variable above and assign it here. Shame.
 initiate = function initiate() {
-  peer = (0, _simplePeer2.default)({ trickle: false, initiator: true, reconnectTimer: true, objectMode: true });
+  peer = (0, _simplePeer2.default)({ wrtc: _wrtc2.default, trickle: false, initiator: true, reconnectTimer: true, objectMode: true });
 
   peer.on('signal', function (data) {
     console.log('peer signal', data);
@@ -25753,7 +25770,7 @@ initiate = function initiate() {
 
 connect = function connect(data) {
   if (peer === null) {
-    peer = (0, _simplePeer2.default)({ trickle: false, reconnectTimer: true, objectMode: true });
+    peer = (0, _simplePeer2.default)({ wrtc: _wrtc2.default, trickle: false, reconnectTimer: true, objectMode: true });
     peer.on('signal', function (data) {
       console.log('peer signal', data);
       update('signal');
@@ -25781,4 +25798,4 @@ connect = function connect(data) {
   });
 };
 
-},{"react":173,"react-dom":44,"simple-peer":185}]},{},[187]);
+},{"react":173,"react-dom":44,"simple-peer":185,"wrtc":187}]},{},[188]);

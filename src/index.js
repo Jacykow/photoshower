@@ -1,6 +1,9 @@
 import Peer from 'simple-peer'
 import React, { createElement } from 'react'
 import { render } from 'react-dom'
+//var wrtc = require('wrtc')
+import Wrtc from 'wrtc'
+// var pc = new RTCPeerConnection({iceServers: [{url: "stun:stun.services.mozilla.com"}]});
 
 let peer = null
 
@@ -73,7 +76,7 @@ update('')
 
 // Because our app is a spaghetti mess, we had to declare a variable above and assign it here. Shame.
 initiate = () => {
-  peer = Peer({trickle: false, initiator: true, reconnectTimer: true, objectMode: true})
+  peer = Peer({wrtc: Wrtc, trickle: false, initiator: true, reconnectTimer: true, objectMode: true})
 
   peer.on('signal', (data) => {
     console.log('peer signal', data)
@@ -84,7 +87,7 @@ initiate = () => {
 
 connect = (data) => {
   if (peer === null) {
-    peer = Peer({trickle: false, reconnectTimer: true, objectMode: true})
+    peer = Peer({wrtc: Wrtc, trickle: false, reconnectTimer: true, objectMode: true})
     peer.on('signal', (data) => {
       console.log('peer signal', data)
       update('signal')
