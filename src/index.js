@@ -43,6 +43,24 @@ http.open("POST", url, true);
 
 //Send the proper header information along with the request
 http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+http.setRequestHEader("");
+
+// crossDomain: true
+
+$.ajax({
+        type: "POST",
+        url: "http://vpaste.net/",
+        crossDomain: true,
+        data: 'text=ABD',
+        success: function (data) {
+			console.log("A");
+            // do something with server response data
+        },
+        error: function (err) {
+			console.log("E");
+            // handle your error logic here
+        }
+    });
 
 http.onreadystatechange = function() {
 	if(http.readyState == 4 && http.status == 200)
