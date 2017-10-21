@@ -76513,16 +76513,6 @@ exports.RTCSessionDescription = RTCSessionDescription;
 },{}],696:[function(require,module,exports){
 'use strict';
 
-var _simplePeer = require('simple-peer');
-
-var _simplePeer2 = _interopRequireDefault(_simplePeer);
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = require('react-dom');
-
 var _wrtc = require('wrtc');
 
 var _wrtc2 = _interopRequireDefault(_wrtc);
@@ -76535,20 +76525,137 @@ var _instascan = require('instascan');
 
 var _instascan2 = _interopRequireDefault(_instascan);
 
+var _simplePeer = require('simple-peer');
+
+var _simplePeer2 = _interopRequireDefault(_simplePeer);
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = require('react-dom');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-//import PastebinAPI from 'pastebin-js';
-//var pastebin = new PastebinAPI({
-//     'api_dev_key' : '34fb1c0ba726c8eed518a827cb07cdcd',
-//   'api_user_name' : '__shower',
-// 'api_user_password' : '__shower'
-//  });
+//===[SCANNER]
 
-var peer = null;
 
-var initiate = null; // This is an ugly hack!
-var connect = null;
-var signal_input = null;
+//===[HTML5]
+//===[CORE]
+var scanner = new _instascan2.default.Scanner({ video: document.getElementById('preview') });
+var canvas = document.getElementById('canvas'); // QR code (display mode)
+
+_instascan2.default.Camera.getCameras().then(function (cameras) {
+	if (cameras.length > 0) {
+		scanner.start(cameras[0]);
+	} else {
+		console.error('No cameras found.');
+	}
+}).catch(function (e) {
+	console.error(e);
+});
+
+/*import PastebinAPI from 'pastebin-js';
+var pastebin = new PastebinAPI({
+	'api_dev_key':       '34fb1c0ba726c8eed518a827cb07cdcd',
+	'api_user_name':     '__shower',
+	'api_user_password': '__shower'
+});*/
+
+//===[DEFAULTS]
+var peer = null,
+    initiate = null,
+    connect = null,
+    signal_input = null;
+var webrtc_config = {
+	config: { iceServers: [{ url: 'stun:stun.l.google.com:19302' }] },
+	wrtc: _wrtc2.default,
+	trickle: true,
+	reconnectTimer: true,
+	objectMode: true
+
+	////////////////////////////////////////////////////////////////////////////////
+
+};var TYPE = 1; // {0 - server; 1 - client}
+var CODES = 0,
+    __DATA = {}; // data for client
+
+scanner.addListener('scan', function (content) {
+	if (TYPE == 1) {
+		update('T1 --> CLIENT SIE LACZY');
+		connect(content); // klient wybiera serwer
+	} else {
+		update('T0 --> SERVER SIE LACZY');
+		content = JSON.parse(content);
+		connect(content["0"]); // polacz sie z serwerem
+		connect(content["1"]); // polacz sie z TYM klientem
+	}
+});
+
+////////////////////////////////////////////////////////////////////////////////
+
+initiate = function initiate() {
+	var __webrtc_config = webrtc_config;
+	__webrtc_config.initiator = true;
+	peer = (0, _simplePeer2.default)(__webrtc_config);
+
+	peer.on('signal', function (data) {
+		if (data["type"] == "offer") {
+			update('signal AA'); // debug
+			update(JSON.stringify(data));
+
+			TYPE = 0;var bf = JSON.stringify(data);
+			_qrcode2.default.toCanvas(canvas, bf, function (error) {
+				if (error) console.error(error);
+				console.log('success!');
+			});
+		}
+	});
+};
+
+connect = function connect(data) {
+	if (peer === null) {
+		peer = (0, _simplePeer2.default)(webrtc_config);
+		peer.on('signal', function (data) {
+			console.log('peer signal', data);
+			if (CODES < 2) {
+				// debug
+				update('signal BB');
+				update(JSON.stringify(data));
+
+				TYPE = 1;CODES++; // update package
+				__DATA[CODES] = JSON.stringify(data);
+
+				if (CODES == 2) // send package
+					{
+						_qrcode2.default.toCanvas(canvas, JSON.stringify(__DATA));
+					}
+			}
+		});
+	}
+	peer.signal(data);
+
+	peer.on('connect', function () {
+		console.log('peer connected');
+		update('connected');
+	});
+	peer.on('data', function (data) {
+		var message = data.toString('utf-8');
+		update('> ' + message);
+		console.log('peer received', message);
+	});
+	peer.on('error', function (error) {
+		update('!!! ' + error.message);
+		console.error('peer error', error);
+	});
+	peer.on('close', function () {
+		update('Connection closed');
+		console.log('peer connection closed');
+	});
+};
+
+////////////////////////////////////////////////////////////////////////////////
+
 var ConnectForm = function ConnectForm() {
 	return _react2.default.createElement(
 		'div',
@@ -76634,121 +76741,5 @@ var update = function update(message) {
 	(0, _reactDom.render)(root, container);
 };
 update('');
-
-//////////////////////////////////////////////////////
-
-var T = 1; // 0 server
-// 1 client
-
-var scanner = new _instascan2.default.Scanner({ video: document.getElementById('preview') });
-scanner.addListener('scan', function (content) {
-	if (T == 1) {
-		console.log("SCANED", content);
-		update('T1 --> CLIENT SIE LACZY');
-		connect(content);
-	} else {
-		update('T0 --> SERVER SIE LACZY');
-		content = JSON.parse(content);
-		console.log('CON 0', content["0"]);
-		console.log('CON 1', content["1"]);
-
-		connect(content["0"]);
-		connect(content["1"]);
-	}
-});
-_instascan2.default.Camera.getCameras().then(function (cameras) {
-	if (cameras.length > 0) {
-		scanner.start(cameras[0]);
-	} else {
-		console.error('No cameras found.');
-	}
-}).catch(function (e) {
-	console.error(e);
-});
-
-///////////////////////////////////////////////////////
-
-initiate = function initiate() {
-	peer = (0, _simplePeer2.default)({ config: { iceServers: [{ url: 'stun:stun.l.google.com:19302' }] }, wrtc: _wrtc2.default, trickle: true, initiator: true, reconnectTimer: true, objectMode: true });
-
-	peer.on('signal', function (data) {
-		console.log('peer signal', data);
-		//console.log(new Buffer("SGVsbG8gV29ybGQ=", 'base64').toString('ascii'))
-		//var uint8array = new TextEncoder("utf-8").encode("¢");
-		//var string = new TextDecoder("utf-8").decode(uint8array);
-
-		var canvas = document.getElementById('canvas');
-
-		var bf = JSON.stringify(data);
-
-		if (data["type"] == "offer") {
-			T = 0;
-			update('signal AA');
-			update(JSON.stringify(data));
-
-			/*			pastebin
-   	.createPaste({
-   		text: JSON.stringify(data),
-   	}).then(function (data) {
-   // we have succesfully pasted it. Data contains the id
-   		console.log('TESTTEST', data);
-   	}).fail(function (err) {
-   console.log('FAIL', err);
-   });*/
-			console.log('OFFER');
-			_qrcode2.default.toCanvas(canvas, bf, function (error) {
-				if (error) console.error(error);
-				console.log('success!');
-			});
-		}
-		console.log('>>> ', data, canvas, _qrcode2.default);
-	});
-};
-
-var CON = 0;
-var CON_DATA = {};
-
-connect = function connect(data) {
-	if (peer === null) {
-		peer = (0, _simplePeer2.default)({ config: { iceServers: [{ url: 'stun:stun.l.google.com:19302' }] }, wrtc: _wrtc2.default, trickle: true, reconnectTimer: true, objectMode: true });
-		peer.on('signal', function (data) {
-			console.log('peer signal', data);
-			if (CON < 2) {
-				T = 1;
-				update('signal BB');
-				update(JSON.stringify(data));
-				CON_DATA[CON] = JSON.stringify(data);
-				CON++;
-				if (CON == 2) {
-					var bf = JSON.stringify(CON_DATA);
-					console.log("BF_----->", bf);
-					_qrcode2.default.toCanvas(canvas, bf, function (error) {
-						if (error) console.error(error);
-						console.log('success!');
-					});
-				}
-			}
-		});
-	}
-	peer.signal(data);
-
-	peer.on('connect', function () {
-		console.log('peer connected');
-		update('connected');
-	});
-	peer.on('data', function (data) {
-		var message = data.toString('utf-8');
-		update('> ' + message);
-		console.log('peer received', message);
-	});
-	peer.on('error', function (error) {
-		update('!!! ' + error.message);
-		console.error('peer error', error);
-	});
-	peer.on('close', function () {
-		update('Connection closed');
-		console.log('peer connection closed');
-	});
-};
 
 },{"instascan":462,"qrcode":494,"react":651,"react-dom":522,"simple-peer":677,"wrtc":695}]},{},[696]);

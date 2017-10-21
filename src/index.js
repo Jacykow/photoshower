@@ -1,23 +1,117 @@
+//===[CORE]
+import Wrtc from 'wrtc'
+import QRCode from 'qrcode'
+import Instascan from 'instascan'
 import Peer from 'simple-peer'
+
+//===[HTML5]
 import React, { createElement } from 'react'
 import { render } from 'react-dom'
 
-import Wrtc from 'wrtc'
-import QRCode from 'qrcode'
-import Instascan from 'instascan';
+//===[SCANNER]
+let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
+var canvas = document.getElementById('canvas') // QR code (display mode)
 
-//import PastebinAPI from 'pastebin-js';
-//var pastebin = new PastebinAPI({
-//     'api_dev_key' : '34fb1c0ba726c8eed518a827cb07cdcd',
-//   'api_user_name' : '__shower',
-// 'api_user_password' : '__shower'
-//  });
+Instascan.Camera.getCameras().then(function (cameras) {
+	if (cameras.length > 0) { scanner.start(cameras[0]); }
+	else { console.error('No cameras found.'); }
+}).catch(function (e) { console.error(e);});
 
-let peer = null
+/*import PastebinAPI from 'pastebin-js';
+var pastebin = new PastebinAPI({
+	'api_dev_key':       '34fb1c0ba726c8eed518a827cb07cdcd',
+	'api_user_name':     '__shower',
+	'api_user_password': '__shower'
+});*/
 
-let initiate = null // This is an ugly hack!
-let connect = null
-let signal_input = null
+//===[DEFAULTS]
+let peer = null, initiate = null, connect = null, signal_input = null
+let webrtc_config = {
+	config: { iceServers: [ { url: 'stun:stun.l.google.com:19302' } ] },
+	wrtc: Wrtc,
+	trickle: true,
+	reconnectTimer: true,
+	objectMode: true}
+
+////////////////////////////////////////////////////////////////////////////////
+
+let TYPE = 1; // {0 - server; 1 - client}
+let CODES = 0, __DATA = {}; // data for client
+
+scanner.addListener('scan', function (content) {
+	if (TYPE == 1) {
+		update('T1 --> CLIENT SIE LACZY');
+		connect(content); // klient wybiera serwer
+	} else {
+		update('T0 --> SERVER SIE LACZY');
+		content = JSON.parse(content);
+		connect(content["0"]); // polacz sie z serwerem
+		connect(content["1"]); // polacz sie z TYM klientem
+	}
+});
+
+////////////////////////////////////////////////////////////////////////////////
+
+initiate = () => {
+	let __webrtc_config = webrtc_config
+	__webrtc_config.initiator = true
+	peer = Peer(__webrtc_config)
+
+	peer.on('signal', (data) => {
+		if (data["type"] == "offer") {
+			update('signal AA') // debug
+			update(JSON.stringify(data))
+
+			TYPE = 0; let bf = JSON.stringify(data)
+			QRCode.toCanvas(canvas, bf, function (error) {
+				if (error) console.error(error)
+				console.log('success!');
+			})
+		}
+	})
+}
+
+connect = (data) => {
+	if (peer === null) {
+		peer = Peer(webrtc_config)
+		peer.on('signal', (data) => {
+			console.log('peer signal', data)
+			if (CODES < 2) {
+				// debug
+				update('signal BB')
+				update(JSON.stringify(data))
+
+				TYPE = 1; CODES++; // update package
+				__DATA[CODES] = JSON.stringify(data);
+
+				if (CODES == 2) // send package
+					{QRCode.toCanvas(canvas, JSON.stringify(__DATA))}
+			}
+		})
+	}
+	peer.signal(data)
+
+	peer.on('connect', () => {
+		console.log('peer connected')
+		update('connected')
+	})
+	peer.on('data', (data) => {
+		const message = data.toString('utf-8')
+		update('> ' + message)
+		console.log('peer received', message)
+	})
+	peer.on('error', (error) => {
+		update('!!! ' + error.message)
+		console.error('peer error', error)
+	})
+	peer.on('close', () => {
+		update('Connection closed')
+		console.log('peer connection closed')
+	})
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 const ConnectForm = () => (
 	<div>
 	<input
@@ -82,118 +176,4 @@ const update = (message) => {
 }
 update('')
 
-//////////////////////////////////////////////////////
 
-let T = 1; // 0 server
-           // 1 client
-
-let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
-scanner.addListener('scan', function (content) {
-	if (T == 1) {
-		console.log("SCANED", content);
-		update('T1 --> CLIENT SIE LACZY');
-		connect(content);
-	} else {
-		update('T0 --> SERVER SIE LACZY');
-		content = JSON.parse(content);
-		console.log('CON 0', content["0"]);
-		console.log('CON 1', content["1"]);
-	
-		connect(content["0"]);
-		connect(content["1"]);
-	}
-});
-Instascan.Camera.getCameras().then(function (cameras) {
-	if (cameras.length > 0) {
-		scanner.start(cameras[0]);
-	} else {
-		console.error('No cameras found.');
-	}
-}).catch(function (e) {
-	console.error(e);
-});
-
-///////////////////////////////////////////////////////
-
-initiate = () => {
-	peer = Peer({config: { iceServers: [ { url: 'stun:stun.l.google.com:19302' } ] },wrtc: Wrtc, trickle: true, initiator: true, reconnectTimer: true, objectMode: true})
-
-	peer.on('signal', (data) => {
-		console.log('peer signal', data)
-		//console.log(new Buffer("SGVsbG8gV29ybGQ=", 'base64').toString('ascii'))
-		//var uint8array = new TextEncoder("utf-8").encode("¢");
-		//var string = new TextDecoder("utf-8").decode(uint8array);
-
-		var canvas = document.getElementById('canvas')
-
-		var bf = JSON.stringify(data)
-
-		if (data["type"] == "offer") {
-			T = 0;
-			update('signal AA')
-			update(JSON.stringify(data))
-
-			/*			pastebin
-				.createPaste({
-					text: JSON.stringify(data),
-				}).then(function (data) {
-		// we have succesfully pasted it. Data contains the id
-					console.log('TESTTEST', data);
-				}).fail(function (err) {
-		console.log('FAIL', err);
-	});*/
-		console.log('OFFER');
-		QRCode.toCanvas(canvas, bf, function (error) {
-			if (error) console.error(error)
-			console.log('success!');
-		})
-		}
-		console.log('>>> ', data, canvas, QRCode)
-	})
-}
-
-let CON = 0;
-let CON_DATA = {};
-
-connect = (data) => {
-	if (peer === null) {
-		peer = Peer({config: { iceServers: [ { url: 'stun:stun.l.google.com:19302' } ] },wrtc: Wrtc, trickle: true, reconnectTimer: true, objectMode: true})
-		peer.on('signal', (data) => {
-			console.log('peer signal', data)
-			if (CON < 2) {
-				T = 1;
-				update('signal BB')
-				update(JSON.stringify(data))
-				CON_DATA[CON] = JSON.stringify(data);
-				CON++;
-				if (CON == 2) {
-					let bf = JSON.stringify(CON_DATA);
-					console.log("BF_----->",bf);
-					QRCode.toCanvas(canvas, bf, function (error) {
-						if (error) console.error(error)
-						console.log('success!');
-					})
-				}
-			}
-		})
-	}
-	peer.signal(data)
-
-	peer.on('connect', () => {
-		console.log('peer connected')
-		update('connected')
-	})
-	peer.on('data', (data) => {
-		const message = data.toString('utf-8')
-		update('> ' + message)
-		console.log('peer received', message)
-	})
-	peer.on('error', (error) => {
-		update('!!! ' + error.message)
-		console.error('peer error', error)
-	})
-	peer.on('close', () => {
-		update('Connection closed')
-		console.log('peer connection closed')
-	})
-}
