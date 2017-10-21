@@ -1,3 +1,5 @@
+https://git.io/vdbbg
+
 title   : Reactive P2P Chat
 author  :
   name    : Tadeusz Łazurski

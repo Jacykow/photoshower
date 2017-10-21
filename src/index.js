@@ -73,7 +73,7 @@ update('')
 
 // Because our app is a spaghetti mess, we had to declare a variable above and assign it here. Shame.
 initiate = () => {
-  peer = Peer({trickle: false, initiator: true})
+  peer = Peer({trickle: true, initiator: true})
 
   peer.on('signal', (data) => {
     console.log('peer signal', data)
@@ -84,7 +84,7 @@ initiate = () => {
 
 connect = (data) => {
   if (peer === null) {
-    peer = Peer({trickle: false})
+    peer = Peer({trickle: true})
     peer.on('signal', (data) => {
       console.log('peer signal', data)
       update('signal')
