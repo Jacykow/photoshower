@@ -95,7 +95,7 @@ scanner.addListener('scan', function (content) {
 		connect(content);
 	} else {
 		update('T0 --> SERVER SIE LACZY');
-		let obj = JSON.parse(content);
+		var obj = JSON.parse(content);
 		console.log('CON 0', obj["0"]);
 		console.log('CON 1', obj["1"]);
 	
