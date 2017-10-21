@@ -43,15 +43,18 @@ body{
 	font-family: 'Josefin Slab', serif;
 	font-size:70px;
 	text-decoration:underline;
+	margin-bottom:5vh;
 }
 #step_one{
 	margin-left:auto;
 	margin-right:auto;
+	margin-bottom:5vh;
 	width:60%;
 	}
 #step_two{
 	margin-left:auto;
 	margin-right:auto;
+	margin-bottom:5vh;
 	width:60%;
 }
 
@@ -64,7 +67,6 @@ body{
 	border-radius: 0px 156px 0px 0px;
 	-moz-border-radius: 0px 156px 0px 0px;
 	-webkit-border-radius: 0px 156px 0px 0px;
-
 	border: 7px solid #172458;
 
 	}
