@@ -2,7 +2,7 @@ body
 {
 	font-family: 'Josefin Slab', serif;
 	/* Background pattern from Subtle Patterns */
-	background-image: url("img/escheresque.png");
+	background-image: url("../assets/img/escheresque.png");
 	
 	margin:0;
 }

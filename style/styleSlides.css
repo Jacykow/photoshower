@@ -70,16 +70,16 @@ body, html {
 }
 
 #left-arrow {
-	background-image: url('assets/img/left-arrow.png');
+	background-image: url('../assets/img/left-arrow.png');
 }
 #right-arrow {
-	background-image: url('assets/img/right-arrow.png');
+	background-image: url('../assets/img/right-arrow.png');
 }
 #draw {
-	background-image: url('assets/img/draw.png');
+	background-image: url('../assets/img/draw.png');
 }
 #clean {
-	background-image: url('assets/img/undo.png');
+	background-image: url('../assets/img/undo.png');
 }
 #colors {
 	float:left;

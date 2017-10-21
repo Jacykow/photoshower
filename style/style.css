@@ -1,7 +1,7 @@
 body
 {
 	/* Background pattern from Subtle Patterns */
-	background-image: url("img/escheresque.png");
+	background-image: url("../assets/img/escheresque.png");
 	font-family: 'Josefin Slab', serif;
 	margin:0;
 }
