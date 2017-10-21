@@ -1,6 +1,7 @@
 	var canvas;
 	var context;
 	
+	
 	var clickX = [];
 	var clickY = [];
 	var clickDrag = [];
@@ -43,11 +44,26 @@
 			curColor = purple;
 		});
 		
+		document.getElementById('red').addEventListener("touch",function() {
+			curColor = red;
+		});
+		
+		document.getElementById('black').addEventListener("touch",function() {
+			curColor = black;
+		});
+		
+		document.getElementById('blue').addEventListener("touch",function() {
+			curColor = blue;
+		});
+		
+		document.getElementById('purple').addEventListener("touch", function() {
+			curColor = purple;
+		});
+		
         $('#myCanvas').mousedown(function (e) {
             var mouseX = e.clientX - offsetL;
             var mouseY = e.clientY - offsetT;
 
-            console.log("down");
             paint = true;
 			if(drawing) {
 				
@@ -56,17 +72,36 @@
 			}
         });
 
+		canvas.addEventListener("touchstart", function(e) {
+			var mouseX = e.targetTouches[0].pageX - offsetL;
+            var mouseY = e.targetTouches[0].pageY - offsetT;
+            paint = true;
+			if(drawing) {
+				addClick(e.targetTouches[0].pageX- offsetL, e.targetTouches[0].pageY - offsetT);
+				
+				redraw();
+			}
+		});
+		
         $('#myCanvas').mousemove(function (e) {
             if (paint && drawing) {
-				console.log(e);
                 addClick(e.clientX -offsetL, e.clientY - offsetT, true);
                 redraw();
             }
         });
+		canvas.addEventListener("touchmove", function(e) {
+			 if (paint && drawing) {
+                addClick(e.targetTouches[0].pageX -offsetL, e.targetTouches[0].pageY- offsetT, true);
+                redraw();
+            }
+		});
 
         $('#myCanvas').mouseup(function (e) {
             paint = false;
         });
+		canvas.addEventListener("touchend", function() {
+			 paint = false;
+		});
 
         $('#myCanvas').mouseleave(function (e) {
             paint = false;

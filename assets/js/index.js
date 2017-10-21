@@ -29,7 +29,6 @@ function init() {
 			$('#draw').css('background-color', 'rgb(30,30,30)');
 			drawing = 1;
 		}
-		console.log(drawing);
     });
     setSlide(active, active);
 }
