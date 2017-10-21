@@ -74,6 +74,17 @@ pastebin
     console.log("PS", err);
   })
 
+			pastebin
+  .getPaste('76b2yNRt')
+  .then(function (data) {
+    // data contains the raw paste
+    console.log(data);
+  })
+  .fail(function (err) {
+    // Something went wrong
+    console.log(err);
+  })
+
 			// send package [SERVER]
 			TYPE = 0; let bf = JSON.stringify(data)
 			QRCode.toCanvas(canvas, bf, function (error) {
