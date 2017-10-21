@@ -1,62 +1,69 @@
 import Peer from 'simple-peer'
 import React, { createElement } from 'react'
 import { render } from 'react-dom'
-//var wrtc = require('wrtc')
-import Wrtc from 'wrtc'
-// var pc = new RTCPeerConnection({iceServers: [{url: "stun:stun.services.mozilla.com"}]});
 
+import Wrtc from 'wrtc'
+import QRCode from 'qrcode'
+
+import PastebinAPI from 'pastebin-js';
+var pastebin = new PastebinAPI({
+      'api_dev_key' : '34fb1c0ba726c8eed518a827cb07cdcd',
+      'api_user_name' : '__shower',
+      'api_user_password' : '__shower'
+    });
+	
 let peer = null
 
 let initiate = null // This is an ugly hack!
 let connect = null
 let signal_input = null
 const ConnectForm = () => (
-  <div>
-    <input
-      ref = { (el) => signal_input = el }
-      placeholder = 'Enter signaling data here...'
-    />
-    <button
-      onClick = { () => connect(signal_input.value) }
-    >
-      Answer
-    </button>
-    <button
-      onClick = { () => initiate() }
-    >
-      Initiate
-    </button>
+	<div>
+	<input
+	ref = { (el) => signal_input = el }
+	placeholder = 'Enter signaling data here...'
+	/>
+	<button
+	onClick = { () => connect(signal_input.value) }
+	>
+	Answer
+	</button>
+	<button
+	onClick = { () => initiate() }
+	>
+	Initiate
+	</button>
 
-  </div>
+	</div>
 )
 
 let message_input = ''
 const MessageForm = () => (
-  <div>
-    <input
-      ref = { (el) => message_input = el }
-      placeholder = 'Enter something nice here...'
-    />
-    <button
-      onClick = { () => {
-        const message = message_input.value
-        update('< ' + message)
-        peer.send(message)
-      } }
-    >
-      Send
-    </button>
-  </div>
+	<div>
+	<input
+	ref = { (el) => message_input = el }
+	placeholder = 'Enter something nice here...'
+	/>
+	<button
+	onClick = { () => {
+		const message = message_input.value
+		update('< ' + message)
+		peer.send(message)
+	} }
+	>
+	Send
+	</button>
+	</div>
 )
 
 const Root = (props) => (
-  <div>
-    { !props.connected ? <ConnectForm /> : "" }
-    {
-      props.messages.map((message) => <pre>{ message }</pre>)
-    }
-    { props.connected ? <MessageForm /> : "" }
-  </div>
+	<div>
+	{ !props.connected ? <ConnectForm /> : "" }
+	{
+		props.messages.map((message) => <pre>{ message }</pre>)
+	}
+	{ props.connected ? <MessageForm /> : "" }
+	</div>
 )
 
 const container = document.getElementById('app-container')
@@ -64,52 +71,84 @@ const container = document.getElementById('app-container')
 let connected = false
 let messages = []
 const update = (message) => {
-  messages = messages.concat(message)
-  if (message === 'connected') { connected = true }
-  const root = createElement(Root, { messages, connected })
-  render(
-    root,
-    container
-  )
+	messages = messages.concat(message)
+	if (message === 'connected') { connected = true }
+	const root = createElement(Root, { messages, connected })
+	render(
+		root,
+		container
+	)
 }
 update('')
 
-initiate = () => {
-  peer = Peer({config: { iceServers: [ { url: 'stun:stun.l.google.com:19302' } ] },wrtc: Wrtc, trickle: true, initiator: true, reconnectTimer: true, objectMode: true})
+//////////////////////////////////////////////////////
 
-  peer.on('signal', (data) => {
-    console.log('peer signal', data)
-    update('signal')
-    update(JSON.stringify(data))
-  })
+
+///////////////////////////////////////////////////////
+
+initiate = () => {
+	peer = Peer({config: { iceServers: [ { url: 'stun:stun.l.google.com:19302' } ] },wrtc: Wrtc, trickle: true, initiator: true, reconnectTimer: true, objectMode: true})
+
+	peer.on('signal', (data) => {
+		console.log('peer signal', data)
+		update('signal')
+		update(JSON.stringify(data))
+
+		//console.log(new Buffer("SGVsbG8gV29ybGQ=", 'base64').toString('ascii'))
+		//var uint8array = new TextEncoder("utf-8").encode("¢");
+		//var string = new TextDecoder("utf-8").decode(uint8array);
+
+		var canvas = document.getElementById('canvas')
+
+		var bf = JSON.stringify(data)
+
+		if (data["type"] == "offer") {
+			pastebin
+				.createPaste({
+					text: JSON.stringify(data),
+				}).then(function (data) {
+					// we have succesfully pasted it. Data contains the id
+					console.log('TESTTEST', data);
+				}).fail(function (err) {
+        console.log('FAIL', err);
+    });
+
+			console.log('OFFER');
+			QRCode.toCanvas(canvas, bf, function (error) {
+				if (error) console.error(error)
+				console.log('success!');
+			})
+		}
+		console.log('>>> ', data, canvas, QRCode)
+	})
 }
 
 connect = (data) => {
-  if (peer === null) {
-    peer = Peer({config: { iceServers: [ { url: 'stun:stun.l.google.com:19302' } ] },wrtc: Wrtc, trickle: true, reconnectTimer: true, objectMode: true})
-    peer.on('signal', (data) => {
-      console.log('peer signal', data)
-      update('signal')
-      update(JSON.stringify(data))
-    })
-  }
-  peer.signal(data)
+	if (peer === null) {
+		peer = Peer({config: { iceServers: [ { url: 'stun:stun.l.google.com:19302' } ] },wrtc: Wrtc, trickle: true, reconnectTimer: true, objectMode: true})
+		peer.on('signal', (data) => {
+			console.log('peer signal', data)
+			update('signal')
+			update(JSON.stringify(data))
+		})
+	}
+	peer.signal(data)
 
-  peer.on('connect', () => {
-    console.log('peer connected')
-    update('connected')
-  })
-  peer.on('data', (data) => {
-    const message = data.toString('utf-8')
-    update('> ' + message)
-    console.log('peer received', message)
-  })
-  peer.on('error', (error) => {
-    update('!!! ' + error.message)
-    console.error('peer error', error)
-  })
-  peer.on('close', () => {
-    update('Connection closed')
-    console.log('peer connection closed')
-  })
+	peer.on('connect', () => {
+		console.log('peer connected')
+		update('connected')
+	})
+	peer.on('data', (data) => {
+		const message = data.toString('utf-8')
+		update('> ' + message)
+		console.log('peer received', message)
+	})
+	peer.on('error', (error) => {
+		update('!!! ' + error.message)
+		console.error('peer error', error)
+	})
+	peer.on('close', () => {
+		update('Connection closed')
+		console.log('peer connection closed')
+	})
 }
