@@ -35,7 +35,7 @@ body{
 #upper_bar{
 	font-size: 30px;
 	text-align:center;
-	
+	background-color:#95b3d7;
 	}
 #title_text{
 	padding-bottom:10px;
@@ -131,6 +131,10 @@ body{
 	transition-property: all;
 	transition-duration: 400ms;
 }
+#in_case_of_emergancy{
+	visibility:hidden;
+	font-size:1px;
+}
 footer
 {
 	background-color:#607cbd;
@@ -144,3 +148,23 @@ footer
 	margin-left:0;
 	margin-right:0;
 }
+@media only screen and (max-width: 766px) and (orientation: portrait){
+	header{
+		width:100%;
+	}
+	#container{
+		display: none;
+	}
+	#in_case_of_emergancy{
+		visibility:visible;
+		width:100%;
+		font-size:100px;
+	}
+	#footer{
+		width:100%;
+		padding:0px;
+		margin:0px;
+	}
+}
+
+
