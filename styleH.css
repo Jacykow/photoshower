@@ -1,54 +1,53 @@
+
 body{
 	background-image: url("img/stardust.png")
 	}
 .bordering{
 	border: 4px solid black;
 }
+.num_div{
+	border: 4px dotted black;
+	display: inline-block;
+	width:calc(50% - 10px);
+	text-align:center;
+	padding-top:100px;
+	padding-bottom:100px;
+	
+}
+
 #container{
 	text-align:center;
 	color:#FFFFFF;
 	font-family: sans-serif;
-	font-style: oblique;
-	margin: 70px;
-	border:
+	font-style: bold;
+	margin: 128px;
 	}
 #upper_bar{
-	padding: 4px;
-	margin-top: 20px;
+	padding-top:100px;
+	padding-bottom:100px;
+	font-size: 30px;
 	}
 #title_text{
 	font-size:30px;
 }
 #step_one{
-	padding:40px;
+	
 	}
 #step_two{
-	padding:40px;
 }
+	
+	
 #copy_file{
 	border: 4px dotted black;
-	padding:40px;
-	margin:5%;
+	width:calc(50% - 15px);
+	
 	display: inline-block;
 	}
-#num_one{
-	display: inline-block;
-	padding:40px;
-	margin:5%;
-	border: 4px dotted black;
-}
 #qr_generator{
 	border: 4px dotted black;
-	padding:40px;
-	margin:5%;
+	width:calc(50% - 15px);
 	display: inline-block;
 	}
-#num_two{
-	border: 4px dotted black;
-	padding:40px;
-	margin:5%;
-	display: inline-block;
-}
 #begin_button{
 	margin-top:10%;
 	margin-bottom:10%;
