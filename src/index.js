@@ -37,8 +37,8 @@ let webrtc_config = {
 ////////////////////////////////////////////////////////////////////////////////
 
 var http = new XMLHttpRequest();
-var url = "http://p.ip.fi/";
-var params = "paste=ABC1234";
+var url = "http://dpaste.com/api/v2/";
+var params = "content=ABC1234";
 http.open("POST", url, true);
 
 //Send the proper header information along with the request
