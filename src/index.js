@@ -129,21 +129,20 @@ connect = (data) => {
 		})
 	}
 	peer.signal(data)
-
 	peer.on('connect', () => {
 		console.log('peer connected')
 		update('connected')
-		var slideshow = remark.create();
+		//slideshow = remark.create();
 		slideshow.gotoFirstSlide();
 		if (TYPE == 1) {
 			update('ENV = CLIENT;')
-	document.getElementById("preconnect").style["display"] = "block";
-	document.getElementsByClassName('remark-slides-area')[0].style.display ="none";
+			document.getElementById("preconnect").style["display"] = "block";
+			document.getElementsByClassName('remark-slides-area')[0].style.display ="none";
 		}
 		if (TYPE == 0) {
 			update('ENV = SERVER;')
-	document.getElementById("preconnect").style["display"] = "none";
-	document.getElementsByClassName('remark-slides-area')[0].style.display ="block";
+			document.getElementById("preconnect").style["display"] = "none";
+			document.getElementsByClassName('remark-slides-area')[0].style.display ="block";
 		}
 	})
 	peer.on('data', (data) => {
@@ -173,8 +172,7 @@ connect = (data) => {
 	peer.on('close', () => {
 		update('Connection closed')
 		console.log('peer connection closed')
-	})
-}
+	})}
 
 ////////////////////////////////////////////////////////////////////////////////
 

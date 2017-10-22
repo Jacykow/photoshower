@@ -25799,11 +25799,10 @@ connect = function connect(data) {
 		});
 	}
 	peer.signal(data);
-
 	peer.on('connect', function () {
 		console.log('peer connected');
 		update('connected');
-		var slideshow = remark.create();
+		//slideshow = remark.create();
 		slideshow.gotoFirstSlide();
 		if (TYPE == 1) {
 			update('ENV = CLIENT;');
