@@ -25909,7 +25909,7 @@ var MessageForm = function MessageForm() {
 		),
 		_react2.default.createElement(
 			'button',
-			{
+			{ className: 'left_button',
 				onClick: function onClick() {
 					peer.send('LEFT');
 				}
@@ -25918,7 +25918,7 @@ var MessageForm = function MessageForm() {
 		),
 		_react2.default.createElement(
 			'button',
-			{
+			{ className: 'right_button',
 				onClick: function onClick() {
 					peer.send('RIGHT');
 				}

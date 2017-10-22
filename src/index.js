@@ -215,14 +215,14 @@ const MessageForm = () => (
 	>
 	Send
 	</button>
-	<button
+	<button className={`left_button`}
 	onClick = { () => {
 		peer.send('LEFT')
 	} }
 	>
 	LEFT
 	</button>
-	<button
+	<button className={`right_button`}
 	onClick = { () => {
 		peer.send('RIGHT')
 	} }
