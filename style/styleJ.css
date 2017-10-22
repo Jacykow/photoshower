@@ -36,10 +36,14 @@ header
 border: 0px solid #000000;
 	padding:5px;
 	display:inline-block;
-
+	border: 3px solid #172458;
 
 }
-
+#scan:hover{
+	background-color:#354898;
+	transition-property: all;
+	transition-duration: 400ms;
+}
 #or
 {
 	display:inline-block;
@@ -53,7 +57,8 @@ border: 0px solid #000000;
 	margin-left:6%;
 	margin-right:6%;
 	overflow: hidden;
-	
+	margin-bottom:7%;
+	margin-top:7%;
 	
 	
 	
@@ -63,13 +68,13 @@ border: 0px solid #000000;
 {
 	display:inline-block;
 		border-radius: 48px 48px 48px 48px;
--moz-border-radius: 48px 48px 48px 48px;
--webkit-border-radius: 48px 48px 48px 48px;
-border: 0px solid #000000;
+	-moz-border-radius: 48px 48px 48px 48px;
+	-webkit-border-radius: 48px 48px 48px 48px;
+	border: 0px solid #000000;
 	background-color:white;
 	padding:20px;
 	overflow: hidden;
-	
+	padding-bottom:80px;
 }
 
 input[type=text]
@@ -173,7 +178,7 @@ footer
 		border-radius: 48px 48px 48px 48px;
 	-moz-border-radius: 48px 48px 48px 48px;
 	-webkit-border-radius: 48px 48px 48px 48px;
-	border: 0px solid #000000;
+	border: 3px solid #172458;
 		
 		padding:20px;
 		
@@ -323,7 +328,7 @@ footer
 		border-radius: 38px 38px 38px 38px;
 	-moz-border-radius: 38px 38px 38px 38px;
 	-webkit-border-radius:38px 38px 38px 38px;
-	border: 0px solid #000000;
+	border: 3px solid #172458;
 		
 		float:left;
 		height:23%;
@@ -351,8 +356,9 @@ footer
 		margin-left:10%;
 		margin-right:6%;
 		overflow: hidden;
+		margin-bottom:2%;
 		margin-top:12%;
-		margin-bottom:5%;
+		padding-bottom:13px;
 		
 		
 		
@@ -369,7 +375,7 @@ footer
 		background-color:white;
 		padding:15px;
 		overflow: hidden;
-		margin-top:25px;
+		margin-top:2%;
 		
 	}
 
@@ -412,7 +418,7 @@ footer
 	footer
 	{
 		background-color:#607cbd;
-		
+		padding:10px;
 		padding-top:30px;
 		margin-left:auto;
 		margin-right: auto;
