@@ -34,12 +34,9 @@ header
 -moz-border-radius: 48px 48px 48px 48px;
 -webkit-border-radius: 48px 48px 48px 48px;
 border: 0px solid #000000;
-	background-color:white;
-	padding:20px;
+	padding:5px;
 	display:inline-block;
 
-	
-	
 
 }
 
@@ -177,7 +174,7 @@ footer
 	-moz-border-radius: 48px 48px 48px 48px;
 	-webkit-border-radius: 48px 48px 48px 48px;
 	border: 0px solid #000000;
-		background-color:white;
+		
 		padding:20px;
 		
 		height:60%;
@@ -327,7 +324,7 @@ footer
 	-moz-border-radius: 38px 38px 38px 38px;
 	-webkit-border-radius:38px 38px 38px 38px;
 	border: 0px solid #000000;
-		background-color:white;
+		
 		float:left;
 		height:23%;
 		width:23%;
