@@ -120,8 +120,6 @@ function bridge(data, type) {
 	} else {
 		update('T0 --> SERVER SIE LACZY');
 		//data = JSON.parse(data);
-		console.log(data["1"])
-		console.log(data["2"])
 		connect(data["1"]); // polacz sie z serwerem
 		connect(data["2"]); // polacz sie z TYM klientem		
 	}
