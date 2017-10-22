@@ -1,29 +1,10 @@
 //===[CORE]
 import Wrtc from 'wrtc'
-import QRCode from 'qrcode'
-import Instascan from 'instascan'
 import Peer from 'simple-peer'
 
 //===[HTML5]
 import React, { createElement } from 'react'
 import { render } from 'react-dom'
-
-//===[SCANNER]
-let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
-var canvas = document.getElementById('canvas') // QR code (display mode)
-
-Instascan.Camera.getCameras().then(function (cameras) {
-	if (cameras.length > 0) { scanner.start(cameras[0]); }
-	else { console.error('No cameras found.'); }
-}).catch(function (e) { console.error(e);});
-
-//===[XXX]
-import PastebinAPI from 'pastebin-js';
-var pastebin = new PastebinAPI({
-	'api_dev_key':       '34fb1c0ba726c8eed518a827cb07cdcd',
-	'api_user_name':     '__shower',
-	'api_user_password': '__shower'
-});
 
 //===[DEFAULTS]
 let peer = null, initiate = null, connect = null,
@@ -36,19 +17,6 @@ let webrtc_config = {
 	objectMode: true}
 
 ////////////////////////////////////////////////////////////////////////////////
-
-var base64 = exports;
-
-base64.encode = function (unencoded) {
-  return new Buffer(unencoded || '').toString('base64');
-};
-
-base64.decode = function (encoded) {
-  return new Buffer(encoded || '', 'base64').toString('utf8');
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
 
 function get_code(data) {
 var ID_FINAL = "";
@@ -131,18 +99,6 @@ preconnect = (id_data) => {
 	{ get_param(id_data, 0) }
 }
 
-/*scanner.addListener('scan', function (content) {
-	if (TYPE == 1) {
-		update('T1 --> CLIENT SIE LACZY');
-		connect(content); // klient wybiera serwer
-	} else {
-		update('T0 --> SERVER SIE LACZY');
-		content = JSON.parse(content);
-		connect(content["0"]); // polacz sie z serwerem
-		connect(content["1"]); // polacz sie z TYM klientem
-	}
-});*/
-
 ////////////////////////////////////////////////////////////////////////////////
 
 initiate = () => {
@@ -155,17 +111,10 @@ initiate = () => {
 			update('signal AA') // debug
 			update(JSON.stringify(data))
 
+			TYPE = 0;
 			let code = get_code(JSON.stringify(data));
 			console.log('CODE', code);
 			update('CODE --> ' + code);
-
-			// send package [SERVER]
-			//TYPE = 0; let bf = JSON.stringify(data)
-			TYPE = 0; let bf = code;
-			/*QRCode.toCanvas(canvas, bf, function (error) {
-				if (error) console.error(error)
-				console.log('success!');
-			})*/
 		}
 	})
 }
@@ -187,12 +136,6 @@ connect = (data) => {
 					let code = get_code(JSON.stringify(__DATA));
 					console.log('CODE', code);
 					update('CODE --> ' + code);
-
-					let bf = JSON.stringify(__DATA)
-					/*QRCode.toCanvas(canvas, bf, function (error) {
-						if (error) console.error(error)
-						console.log('success!');
-					})*/
 				}
 			}
 		})
