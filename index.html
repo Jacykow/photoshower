@@ -59,7 +59,7 @@ class: center, middle
 
 <form action="javascript:submit()" class="dropzone">
 		<button type = "submit">
-		let's do it
+		Click here to add files!
 		</button>
 	</form>
 
@@ -70,19 +70,14 @@ class: center, middle
 	function submit() {
 	var i = 0;
 		while(true) {
-		
 			if(!$('.dropzone img').slice(i).attr('src')) break;
 			images.push($('.dropzone img').slice(i).attr('src'));
 			i++;
 		}
-		
-		$('.dropzone').html('Zrobione!');
-		
+		console.log(images);
+		$('.dropzone').html('Done! You are ready to sync.');
 	}
-
 	</script>
-
-
 
 		<style>
 .dz-image {    float: left; width: 10% }
