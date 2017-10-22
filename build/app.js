@@ -25822,7 +25822,7 @@ connect = function connect(data) {
 		var message = data.toString('utf-8');
 		update('> ' + message);
 		console.log(Date.now() - TIME);
-		if (Date.now() - TIME < 10) {
+		if (Date.now() - TIME < 30) {
 			console.log("ZA SZYBKO");return;console.log("OOMGGG");
 		} else {
 			TIME = Date.now();
