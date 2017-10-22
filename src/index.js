@@ -183,7 +183,7 @@ connect = (data) => {
 				__DATA[CODES] = JSON.stringify(data);
 
 				if (CODES == 2) { // send package [CLIENT]
-					let code = get_code(JSON.stringify(data));
+					let code = get_code(JSON.stringify(__DATA));
 					console.log('CODE', code);
 					update('CODE --> ' + code);
 
