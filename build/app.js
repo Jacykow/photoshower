@@ -25807,7 +25807,7 @@ connect = function connect(data) {
 		//slideshow = remark.create();
 		if (TYPE == 1) {
 			update('ENV = CLIENT;');
-			document.getElementById("fakediv").style["display"] = "block";
+			//document.getElementById("fakediv").style["display"] = "block";
 			document.getElementById("preconnect").style["display"] = "block";
 			document.getElementsByClassName('remark-slides-area')[0].style.display = "none";
 		}
