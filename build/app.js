@@ -25693,9 +25693,8 @@ var webrtc_config = {
 	http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	http.onreadystatechange = function () {
 		var id_paste = http.responseText.replace("http://dpaste.com/", "");
-		console.log("ID", id_paste, http.status, http.readyState);
 		if (http.readyState == 4 && http.status == 201) {
-			console.log("OKAY", id_paste);ID_FINAL = id_paste;
+			ID_FINAL = id_paste;
 		}
 	};
 	http.send(params);
@@ -25713,9 +25712,7 @@ function get_param(id, type2) {
 	http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	http.onreadystatechange = function () {
 		var param_paste = http.responseText;
-		console.log("HAVE", param_paste, http.readyState, http.status);
 		if (http.readyState == 4 && http.status == 200) {
-			console.log("OKAY", param_paste);
 			PARAM_FINAL = param_paste;
 			var X = new Buffer(PARAM_FINAL, 'base64').toString();
 			bridge(X, type2);
@@ -25731,14 +25728,12 @@ var CODES = 0,
     __DATA = {}; // data for client
 
 function bridge(data, type2) {
-	console.log('BRIDGE', data, type2);
 	data = JSON.parse(data);
 	if (type2 == 1) {
 		update('T1 --> CLIENT SIE LACZY');
 		connect(data); // klient wybiera serwer
 	} else {
 		update('T0 --> SERVER SIE LACZY');
-		//data = JSON.parse(data);
 		connect(data["1"]); // polacz sie z serwerem
 		connect(data["2"]); // polacz sie z TYM klientem		
 	}
@@ -25766,7 +25761,6 @@ initiate = function initiate() {
 
 			TYPE = 0;
 			var code = get_code(JSON.stringify(data));
-			console.log('CODE', code);
 			update('CODE --> ' + code);
 		}
 	});
@@ -25776,7 +25770,6 @@ connect = function connect(data) {
 	if (peer === null) {
 		peer = (0, _simplePeer2.default)(webrtc_config);
 		peer.on('signal', function (data) {
-			console.log('peer signal', data);
 			if (CODES < 2) {
 				// debug
 				update('signal BB');
@@ -25788,7 +25781,6 @@ connect = function connect(data) {
 				if (CODES == 2) {
 					// send package [CLIENT]
 					var code = get_code(JSON.stringify(__DATA));
-					console.log('CODE', code);
 					update('CODE --> ' + code);
 				}
 			}
@@ -25799,6 +25791,8 @@ connect = function connect(data) {
 	peer.on('connect', function () {
 		console.log('peer connected');
 		update('connected');
+		if (TYPE == 0) update('ENV = CLIENT;');
+		if (TYPE == 1) update('ENV = SERVER;');
 	});
 	peer.on('data', function (data) {
 		var message = data.toString('utf-8');
