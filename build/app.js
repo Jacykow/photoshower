@@ -25797,6 +25797,17 @@ connect = function connect(data) {
 	peer.on('data', function (data) {
 		var message = data.toString('utf-8');
 		update('> ' + message);
+		if (TYPE == 0) {
+			if (message == "LEFT") {
+				console.log("LEFT");
+			}
+			if (message == "RIGHT") {
+				console.log("RIGHT");
+			}
+			if (message == "FULL") {
+				console.log("FULL");
+			}
+		}
 		console.log('peer received', message);
 	});
 	peer.on('error', function (error) {
@@ -25864,6 +25875,24 @@ var MessageForm = function MessageForm() {
 				}
 			},
 			'Send'
+		),
+		_react2.default.createElement(
+			'button',
+			{
+				onClick: function onClick() {
+					peer.send('LEFT');
+				}
+			},
+			'LEFT'
+		),
+		_react2.default.createElement(
+			'button',
+			{
+				onClick: function onClick() {
+					peer.send('RIGHT');
+				}
+			},
+			'RIGHT'
 		)
 	);
 };
@@ -25880,7 +25909,7 @@ var Root = function Root(props) {
 				message
 			);
 		}),
-		props.connected ? _react2.default.createElement(MessageForm, null) : ""
+		props.connected && TYPE == 1 ? _react2.default.createElement(MessageForm, null) : ""
 	);
 };
 

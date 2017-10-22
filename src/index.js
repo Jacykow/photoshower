@@ -127,6 +127,17 @@ connect = (data) => {
 	peer.on('data', (data) => {
 		const message = data.toString('utf-8')
 		update('> ' + message)
+		if (TYPE == 0) {
+			if (message == "LEFT") {
+				console.log("LEFT");
+			}
+			if (message == "RIGHT") {
+				console.log("RIGHT");
+			}
+			if (message == "FULL") {
+				console.log("FULL");
+			}
+		}
 		console.log('peer received', message)
 	})
 	peer.on('error', (error) => {
@@ -178,6 +189,20 @@ const MessageForm = () => (
 	>
 	Send
 	</button>
+	<button
+	onClick = { () => {
+		peer.send('LEFT')
+	} }
+	>
+	LEFT
+	</button>
+	<button
+	onClick = { () => {
+		peer.send('RIGHT')
+	} }
+	>
+	RIGHT
+	</button>
 	</div>
 )
 
@@ -187,7 +212,7 @@ const Root = (props) => (
 	{
 		props.messages.map((message) => <pre>{ message }</pre>)
 	}
-	{ props.connected ? <MessageForm /> : "" }
+	{ props.connected && TYPE == 1 ? <MessageForm /> : "" }
 	</div>
 )
 
