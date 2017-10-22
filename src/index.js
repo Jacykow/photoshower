@@ -113,14 +113,17 @@ let CODES = 0, __DATA = {}; // data for client
 
 function bridge(data, type) {
 	console.log('BRIDGE', data, type);
+	data = JSON.parse(data);
 	if (type == 1) {
 		update('T1 --> CLIENT SIE LACZY');
 		connect(data); // klient wybiera serwer
 	} else {
 		update('T0 --> SERVER SIE LACZY');
-		data = JSON.parse(data);
-		connect(data["0"]); // polacz sie z serwerem
-		connect(data["1"]); // polacz sie z TYM klientem		
+		//data = JSON.parse(data);
+		console.log(data["1"])
+		console.log(data["2"])
+		connect(data["1"]); // polacz sie z serwerem
+		connect(data["2"]); // polacz sie z TYM klientem		
 	}
 }
 
