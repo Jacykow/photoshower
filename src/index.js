@@ -97,8 +97,8 @@ initiate = () => {
 
 	peer.on('signal', (data) => {
 		if (data["type"] == "offer") {
-			update('signal AA') // debug
-			update(JSON.stringify(data))
+			//update('signal AA') // debug
+			//update(JSON.stringify(data))
 
 			TYPE = 0;
 			let code = get_code(JSON.stringify(data));
@@ -115,8 +115,8 @@ connect = (data) => {
 		peer.on('signal', (data) => {
 			if (CODES < 2) {
 				// debug
-				update('signal BB')
-				update(JSON.stringify(data))
+				//update('signal BB')
+				//update(JSON.stringify(data))
 
 				TYPE = 1; CODES++; // update package
 				__DATA[CODES] = JSON.stringify(data);
@@ -181,7 +181,7 @@ const ConnectForm = () => (
 	<input
 	className={`main_input`}
 	ref = { (el) => signal_input = el }
-	placeholder = 'Enter signaling data here...'
+	placeholder = 'Enter 7-Pin Code...'
 	/>
 	<button className={`main_button`}
 	onClick = { () => preconnect(signal_input.value) }

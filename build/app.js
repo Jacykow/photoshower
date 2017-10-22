@@ -25766,8 +25766,8 @@ initiate = function initiate() {
 
 	peer.on('signal', function (data) {
 		if (data["type"] == "offer") {
-			update('signal AA'); // debug
-			update(JSON.stringify(data));
+			//update('signal AA') // debug
+			//update(JSON.stringify(data))
 
 			TYPE = 0;
 			var code = get_code(JSON.stringify(data));
@@ -25784,8 +25784,8 @@ connect = function connect(data) {
 		peer.on('signal', function (data) {
 			if (CODES < 2) {
 				// debug
-				update('signal BB');
-				update(JSON.stringify(data));
+				//update('signal BB')
+				//update(JSON.stringify(data))
 
 				TYPE = 1;CODES++; // update package
 				__DATA[CODES] = JSON.stringify(data);
@@ -25860,7 +25860,7 @@ var ConnectForm = function ConnectForm() {
 			ref: function ref(el) {
 				return signal_input = el;
 			},
-			placeholder: 'Enter signaling data here...'
+			placeholder: 'Enter 7-Pin Code...'
 		}),
 		_react2.default.createElement(
 			'button',
