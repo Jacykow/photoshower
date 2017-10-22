@@ -137,7 +137,8 @@ connect = (data) => {
 	peer.on('data', (data) => {
 		const message = data.toString('utf-8')
 		update('> ' + message)
-		if (Date.now() - TIME < 1) { console.log("ZA SZYBKO"); return; console.log("OOMGGG"); }
+		console.log(Date.now() - TIME);
+		if (Date.now() - TIME < 10) { console.log("ZA SZYBKO"); return; console.log("OOMGGG"); } else { TIME = Date.now(); }
 		if (TYPE == 0) {
 			if (message == "LEFT") {
 				console.log("LEFT");
