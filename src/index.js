@@ -144,6 +144,7 @@ connect = (data) => {
 const ConnectForm = () => (
 	<div>
 	<input
+	className={`main_input`}
 	ref = { (el) => signal_input = el }
 	placeholder = 'Enter signaling data here...'
 	/>
@@ -155,7 +156,7 @@ const ConnectForm = () => (
 	<button
 	onClick = { () => initiate() }
 	>
-	Initiate
+	Initialize Presentation
 	</button>
 
 	</div>

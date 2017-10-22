@@ -25791,8 +25791,8 @@ connect = function connect(data) {
 	peer.on('connect', function () {
 		console.log('peer connected');
 		update('connected');
-		if (TYPE == 0) update('ENV = CLIENT;');
-		if (TYPE == 1) update('ENV = SERVER;');
+		if (TYPE == 1) update('ENV = CLIENT;');
+		if (TYPE == 0) update('ENV = SERVER;');
 	});
 	peer.on('data', function (data) {
 		var message = data.toString('utf-8');
@@ -25816,6 +25816,7 @@ var ConnectForm = function ConnectForm() {
 		'div',
 		null,
 		_react2.default.createElement('input', {
+			className: 'main_input',
 			ref: function ref(el) {
 				return signal_input = el;
 			},
