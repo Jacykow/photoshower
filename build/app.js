@@ -25684,19 +25684,13 @@ var webrtc_config = {
 
 };function get_code(data) {
 	var ID_FINAL = "";
-	//get_code = function () {
 	var data_base64 = new Buffer(data).toString('base64');
 	var http = new XMLHttpRequest();
 	var url = "http://dpaste.com/api/v2/";
-	var params = "content=" + data_base64; // tutaj json
-	console.log("GET_CODE_CONTENT", params);
+	var params = "content=" + data_base64;
+
 	http.open("POST", url, false);
-
-	//Send the proper header information along with the request
 	http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	//http.setRequestHEader("");
-
-	// crossDomain: true
 	http.onreadystatechange = function () {
 		var id_paste = http.responseText.replace("http://dpaste.com/", "");
 		console.log("ID", id_paste, http.status, http.readyState);
@@ -25705,23 +25699,18 @@ var webrtc_config = {
 		}
 	};
 	http.send(params);
+
 	return ID_FINAL;
 }
 
-function get_param(id, type) {
-	// 13BPBRQ
+function get_param(id, type2) {
 	var PARAM_FINAL = "";
-	//get_code = function () {
 	var http = new XMLHttpRequest();
 	var url = "http://dpaste.com/" + id + ".txt";
-	var params = "our=mac"; // tutaj json
+	var params = "our=mac";
+
 	http.open("POST", url, false);
-
-	//Send the proper header information along with the request
 	http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	//http.setRequestHEader("");
-
-	// crossDomain: true
 	http.onreadystatechange = function () {
 		var param_paste = http.responseText;
 		console.log("HAVE", param_paste, http.readyState, http.status);
@@ -25729,16 +25718,11 @@ function get_param(id, type) {
 			console.log("OKAY", param_paste);
 			PARAM_FINAL = param_paste;
 			var X = new Buffer(PARAM_FINAL, 'base64').toString();
-			bridge(X, type);
+			bridge(X, type2);
 		}
 	};
 	http.send(params);
 }
-
-//};
-
-//var ID = get_code();
-//console.log("REC --> ", ID);
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -25746,10 +25730,10 @@ var TYPE = 1; // {0 - server; 1 - client}
 var CODES = 0,
     __DATA = {}; // data for client
 
-function bridge(data, type) {
-	console.log('BRIDGE', data, type);
+function bridge(data, type2) {
+	console.log('BRIDGE', data, type2);
 	data = JSON.parse(data);
-	if (type == 1) {
+	if (type2 == 1) {
 		update('T1 --> CLIENT SIE LACZY');
 		connect(data); // klient wybiera serwer
 	} else {

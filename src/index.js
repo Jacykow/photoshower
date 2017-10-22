@@ -19,70 +19,54 @@ let webrtc_config = {
 ////////////////////////////////////////////////////////////////////////////////
 
 function get_code(data) {
-var ID_FINAL = "";
-	//get_code = function () {
-var data_base64 = new Buffer(data).toString('base64');
-var http = new XMLHttpRequest();
-var url = "http://dpaste.com/api/v2/";
-var params = "content="+data_base64; // tutaj json
-console.log("GET_CODE_CONTENT", params);
-http.open("POST", url, false);
+	var ID_FINAL = "";
+	var data_base64 = new Buffer(data).toString('base64');
+	var http = new XMLHttpRequest();
+	var url = "http://dpaste.com/api/v2/";
+	var params = "content="+data_base64;
 
-//Send the proper header information along with the request
-http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-//http.setRequestHEader("");
+	http.open("POST", url, false);
+	http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	http.onreadystatechange = function() {
+		var id_paste = http.responseText.replace("http://dpaste.com/", "");
+		console.log("ID", id_paste, http.status, http.readyState);
+		if(http.readyState == 4 && http.status == 201)
+		{ console.log("OKAY", id_paste); ID_FINAL = id_paste; }
+	}
+	http.send(params);
 
-// crossDomain: true
-http.onreadystatechange = function() {
-	var id_paste = http.responseText.replace("http://dpaste.com/", "");
-	console.log("ID", id_paste, http.status, http.readyState);
-	if(http.readyState == 4 && http.status == 201)
-	{ console.log("OKAY", id_paste); ID_FINAL = id_paste; }
-}
-http.send(params);
-return ID_FINAL;
+	return ID_FINAL;
 }
 
-function get_param(id, type) {
-// 13BPBRQ
-var PARAM_FINAL = "";
-	//get_code = function () {
-var http = new XMLHttpRequest();
-var url = "http://dpaste.com/" + id + ".txt";
-var params = "our=mac"; // tutaj json
-http.open("POST", url, false);
+function get_param(id, type2) {
+	var PARAM_FINAL = "";
+	var http = new XMLHttpRequest();
+	var url = "http://dpaste.com/" + id + ".txt";
+	var params = "our=mac";
 
-//Send the proper header information along with the request
-http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-//http.setRequestHEader("");
-
-// crossDomain: true
-http.onreadystatechange = function() {
-	var param_paste = http.responseText;
-	console.log("HAVE", param_paste, http.readyState, http.status);
-	if(http.readyState == 4 && http.status == 200)
-	{ console.log("OKAY", param_paste);
-		PARAM_FINAL = param_paste;
-		let X = new Buffer(PARAM_FINAL, 'base64').toString();
-		bridge(X, type); }
+	http.open("POST", url, false);
+	http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	http.onreadystatechange = function() {
+		var param_paste = http.responseText;
+		console.log("HAVE", param_paste, http.readyState, http.status);
+		if(http.readyState == 4 && http.status == 200)
+		{ console.log("OKAY", param_paste);
+			PARAM_FINAL = param_paste;
+			let X = new Buffer(PARAM_FINAL, 'base64').toString();
+			bridge(X, type2); }
+	}
+	http.send(params);
 }
-http.send(params);
-}
-
-//};
-
-//var ID = get_code();
-//console.log("REC --> ", ID);
 
 ////////////////////////////////////////////////////////////////////////////////
 
 let TYPE = 1; // {0 - server; 1 - client}
 let CODES = 0, __DATA = {}; // data for client
 
-function bridge(data, type) {
-	console.log('BRIDGE', data, type);
+function bridge(data, type2) {
+	console.log('BRIDGE', data, type2);
 	data = JSON.parse(data);
-	if (type == 1) {
+	if (type2 == 1) {
 		update('T1 --> CLIENT SIE LACZY');
 		connect(data); // klient wybiera serwer
 	} else {
