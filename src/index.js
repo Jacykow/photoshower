@@ -73,10 +73,10 @@ let CODES = 0, __DATA = {}; // data for client
 function bridge(data, type2) {
 	data = JSON.parse(data);
 	if (type2 == 1) {
-		update('T1 --> CLIENT SIE LACZY');
+		//update('T1 --> CLIENT SIE LACZY');
 		connect(data); // klient wybiera serwer
 	} else {
-		update('T0 --> SERVER SIE LACZY');
+		//update('T0 --> SERVER SIE LACZY');
 		connect(data["1"]); // polacz sie z serwerem
 		connect(data["2"]); // polacz sie z TYM klientem		
 	}
@@ -102,7 +102,8 @@ initiate = () => {
 
 			TYPE = 0;
 			let code = get_code(JSON.stringify(data));
-			update('CODE --> ' + code);
+			document.getElementsByClassName("new_button")[0].innerHTML = "<b>"+code+"</b>";
+			//update('CODE --> ' + code);
 		}
 	})
 }
@@ -123,7 +124,8 @@ connect = (data) => {
 
 				if (CODES == 2) { // send package [CLIENT]
 					let code = get_code(JSON.stringify(__DATA));
-					update('CODE --> ' + code);
+					//update('CODE --> ' + code);
+					document.getElementsByClassName("main_button")[0].innerHTML = "<b>"+code+"</b>";
 				}
 			}
 		})
