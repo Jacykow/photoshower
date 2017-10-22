@@ -25824,21 +25824,21 @@ var ConnectForm = function ConnectForm() {
 		}),
 		_react2.default.createElement(
 			'button',
-			{
+			{ className: 'main_button',
 				onClick: function onClick() {
 					return preconnect(signal_input.value);
 				}
 			},
-			'Answer'
+			'Synchronize'
 		),
 		_react2.default.createElement(
 			'button',
-			{
+			{ className: 'new_button',
 				onClick: function onClick() {
 					return initiate();
 				}
 			},
-			'Initiate'
+			'Initialize Presentation'
 		)
 	);
 };

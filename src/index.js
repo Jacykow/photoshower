@@ -148,12 +148,12 @@ const ConnectForm = () => (
 	ref = { (el) => signal_input = el }
 	placeholder = 'Enter signaling data here...'
 	/>
-	<button
+	<button className={`main_button`}
 	onClick = { () => preconnect(signal_input.value) }
 	>
-	Answer
+	Synchronize
 	</button>
-	<button
+	<button className={`new_button`}
 	onClick = { () => initiate() }
 	>
 	Initialize Presentation
