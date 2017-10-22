@@ -152,7 +152,7 @@ connect = (data) => {
 		const message = data.toString('utf-8')
 		update('> ' + message)
 		console.log(Date.now() - TIME);
-		if (Date.now() - TIME < 30) { console.log("ZA SZYBKO"); return; console.log("OOMGGG"); } else { TIME = Date.now(); }
+		if (Date.now() - TIME < 40) { console.log("ZA SZYBKO"); return; console.log("OOMGGG"); } else { TIME = Date.now(); }
 		if (TYPE == 0) {
 			if (message == "LEFT") {
 				console.log("LEFT");
