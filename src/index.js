@@ -133,6 +133,7 @@ connect = (data) => {
 	peer.on('connect', () => {
 		console.log('peer connected')
 		update('connected')
+		var slideshow = remark.create();
 		if (TYPE == 1) {
 			update('ENV = CLIENT;')
 	document.getElementById("PRE").style["display"] = "block";

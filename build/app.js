@@ -25803,6 +25803,7 @@ connect = function connect(data) {
 	peer.on('connect', function () {
 		console.log('peer connected');
 		update('connected');
+		var slideshow = remark.create();
 		if (TYPE == 1) {
 			update('ENV = CLIENT;');
 			document.getElementById("PRE").style["display"] = "block";
