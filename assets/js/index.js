@@ -30,6 +30,16 @@ function init() {
 			drawing = 1;
 		}
     });
+	$(window).resize(function(){
+		var img = $('#content img:eq('+curr+')');
+		if($(window).width()/ $(window).height() > $(img).width() / $(img).height()) {
+		// height = 100%;
+			$(img).css('height', '100%');
+		} else {
+			//width = 100%;
+			$(img).css('width', '100%');
+		}
+	});
     setSlide(active, active);
 	
 }
