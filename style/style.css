@@ -1,6 +1,5 @@
 body
 {
-	/* Background pattern from Subtle Patterns */
 	background-image: url("../assets/img/escheresque.png");
 	font-family: 'Josefin Slab', serif;
 	margin:0;
@@ -117,7 +116,6 @@ footer
 {
 	body
 	{
-		/* Background pattern from Subtle Patterns */
 		background-image: url("../assets/img/escheresque.png");
 		font-family: 'Josefin Slab', serif;
 		margin:0;
