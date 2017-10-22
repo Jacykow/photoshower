@@ -3,6 +3,10 @@
   <head>
     <title>PHOTOSHOWER</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+	<script src="assets/dropzone.js"></script>
+	<script src="assets/jquery-3.2.1.min.js"></script>
+
 <link crossorigin="anonymous" href="https://necolas.github.io/normalize.css/7.0.0/normalize.css" media="all" rel="stylesheet" />
 	<style type="text/css">
       @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
@@ -50,7 +54,49 @@ class: center, middle
 		<div class="pslogo"></div>
 		<div id='app-container'></div>
 		<script src="build/app.js?final"></script>
+		<hr class="special_hr">
+
+
+<form action="javascript:submit()" class="dropzone">
+		<button type = "submit">
+		let's do it
+		</button>
+	</form>
+
+	<script>
+
+	var images = [];
+
+	function submit() {
+	var i = 0;
+		while(true) {
+		
+			if(!$('.dropzone img').slice(i).attr('src')) break;
+			images.push($('.dropzone img').slice(i).attr('src'));
+			i++;
+		}
+		
+		$('.dropzone').html('Zrobione!');
+		
+	}
+
+	</script>
+
+
+
 		<style>
+
+.dropzone {
+    height: 30%;
+    position: fixed;
+    left: 0.5%;
+    right: 0;
+    width: 98%;
+    border: 3px dashed;
+}
+
+.special_hr {
+border: 3px solid red;}
 
 .left_button {
 	width: 50%;
@@ -89,7 +135,7 @@ margin-bottom: 10px;}
     font-size: 40px;
     margin-top: 12px;
     bottom: 0;
-    height: 50%;
+    height: 30%;
     position: fixed;
     left: 0;
     right: 0;}
@@ -104,7 +150,6 @@ width: 100%;
     bottom: 0;
 	}
 		</style>
-		<hr>
 	</div>
 
 
