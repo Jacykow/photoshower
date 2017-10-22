@@ -25791,8 +25791,16 @@ connect = function connect(data) {
 	peer.on('connect', function () {
 		console.log('peer connected');
 		update('connected');
-		if (TYPE == 1) update('ENV = CLIENT;');
-		if (TYPE == 0) update('ENV = SERVER;');
+		if (TYPE == 1) {
+			update('ENV = CLIENT;');
+			document.getElementById("PRE").style["display"] = "block";
+			document.getElementsByClassName('remark-slides-area')[0].style.display = "none";
+		}
+		if (TYPE == 0) {
+			update('ENV = SERVER;');
+			document.getElementById("PRE").style["display"] = "none";
+			document.getElementsByClassName('remark-slides-area')[0].style.display = "block";
+		}
 	});
 	peer.on('data', function (data) {
 		var message = data.toString('utf-8');
