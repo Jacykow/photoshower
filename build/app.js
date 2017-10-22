@@ -25806,12 +25806,12 @@ connect = function connect(data) {
 		var slideshow = remark.create();
 		if (TYPE == 1) {
 			update('ENV = CLIENT;');
-			document.getElementById("PRE").style["display"] = "block";
+			document.getElementById("preconnect").style["display"] = "block";
 			document.getElementsByClassName('remark-slides-area')[0].style.display = "none";
 		}
 		if (TYPE == 0) {
 			update('ENV = SERVER;');
-			document.getElementById("PRE").style["display"] = "none";
+			document.getElementById("preconnect").style["display"] = "none";
 			document.getElementsByClassName('remark-slides-area')[0].style.display = "block";
 		}
 	});
