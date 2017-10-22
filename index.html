@@ -23,7 +23,6 @@
   <body>
 
     <textarea id="source">
-
 class: center, middle
 
 # Finnish him!
@@ -40,7 +39,6 @@ class: center, middle
 ---
 
 # WEBRTC jest super!!!
-
     </textarea>
     <script src="https://remarkjs.com/downloads/remark-latest.min.js" type="text/javascript">
     </script>
@@ -69,13 +67,21 @@ class: center, middle
 
 	function submit() {
 	var i = 0;
+		var text = "";
 		while(true) {
 			if(!$('.dropzone img').slice(i).attr('src')) break;
 			images.push($('.dropzone img').slice(i).attr('src'));
-			i++;
+			// text += "class: center, middle\n\n<img src="+ $('.dropzone img').slice(i).attr('src') +"/>\n\n---\n\n"
+			var pre_head = "class: center, middle\n\n";
+			var aft_head = "\n\n---\n\n";
+			var dat_base = $('.dropzone img').slice(i).attr('src');
+			text += pre_head + "![lol](" + dat_base + ")"+ aft_head;
+					i++;
 		}
+		text += "done!";
 		console.log(images);
-		$('.dropzone').html('Done! You are ready to sync.');
+		$('.dropzone').html('Done! You are ready to sync. Click the button below!');
+		$('#source').html(text);
 	}
 	</script>
 
@@ -107,6 +113,7 @@ border: 3px solid red;}
     left: 0;
     top: 0;
     bottom: 0;
+	z-index: 100;
 	}
 .right_button {
 width: 50%;
@@ -114,6 +121,7 @@ width: 50%;
     right: 0;
     top: 0;
     bottom: 0;
+	z-index: 100;
 }
 
 .remark-slides-area{display:none;}
