@@ -94,8 +94,9 @@ http.onreadystatechange = function() {
 	console.log("HAVE", param_paste, http.readyState, http.status);
 	if(http.readyState == 4 && http.status == 200)
 	{ console.log("OKAY", param_paste);
+		PARAM_FINAL = param_paste;
 		let X = new Buffer(PARAM_FINAL, 'base64').toString();
-		PARAM_FINAL = param_paste; bridge(X, type); }
+		bridge(X, type); }
 }
 http.send(params);
 }
