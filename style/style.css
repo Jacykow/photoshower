@@ -27,6 +27,15 @@ p{
 	
 }
 
+
+.link
+{
+	display:block;
+	text-decoration:none;
+	color:black;
+	
+}
+
 main
 {
 	margin-top:40px;
