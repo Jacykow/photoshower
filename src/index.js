@@ -97,6 +97,8 @@ initiate = () => {
 	})
 }
 
+let TIME = Date.now();
+
 connect = (data) => {
 	if (peer === null) {
 		peer = Peer(webrtc_config)
@@ -135,6 +137,7 @@ connect = (data) => {
 	peer.on('data', (data) => {
 		const message = data.toString('utf-8')
 		update('> ' + message)
+		if (Date.now() - TIME < 1) { console.log("ZA SZYBKO"); return; console.log("OOMGGG"); }
 		if (TYPE == 0) {
 			if (message == "LEFT") {
 				console.log("LEFT");

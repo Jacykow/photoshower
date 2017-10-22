@@ -25766,6 +25766,8 @@ initiate = function initiate() {
 	});
 };
 
+var TIME = Date.now();
+
 connect = function connect(data) {
 	if (peer === null) {
 		peer = (0, _simplePeer2.default)(webrtc_config);
@@ -25805,6 +25807,9 @@ connect = function connect(data) {
 	peer.on('data', function (data) {
 		var message = data.toString('utf-8');
 		update('> ' + message);
+		if (Date.now() - TIME < 1) {
+			console.log("ZA SZYBKO");return;console.log("OOMGGG");
+		}
 		if (TYPE == 0) {
 			if (message == "LEFT") {
 				console.log("LEFT");
