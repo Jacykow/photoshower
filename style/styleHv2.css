@@ -1,0 +1,100 @@
+body
+{
+	/* Background pattern from Subtle Patterns */
+	background-image: url("../assets/img/escheresque.png");
+	font-family: 'Josefin Slab', serif;
+	margin:0;
+	
+}
+
+header
+{
+	text-align: center;
+	background-color:#95b3d7;
+	margin-left:auto;
+	margin-right:auto;	
+	padding:8px;
+}
+
+#container
+{
+	text-align:center;
+	margin-left:25%;
+	margin-right:25%;
+}
+
+#under_logo
+{
+	margin-top:5%;
+	font-size:30px;
+	font-weight:700;
+	
+}
+
+.photo img
+{
+	
+	width:100%;
+	height:100%;
+	border-radius: 28px 28px 28px 28px;
+-moz-border-radius: 28px 28px 28px 28px;
+-webkit-border-radius: 28px 28px 28px 28px;
+border: 3px solid #000000;
+	padding:2%;
+
+	
+	
+
+}
+
+#container a
+{
+	text-decoration:none;
+	color:black;
+}
+
+.photo p
+{
+	font-size: 20px;
+}
+
+.photo a
+{
+	decoration:none;
+
+}
+
+.photo:hover img
+{
+	background-color:#354898;
+	transition-property: all;
+	transition-duration: 400ms;
+}
+
+#section_1
+{
+		margin:5%;
+		display:inline-block;
+}
+#section_2
+{
+		margin:5%;
+		display:inline-block;
+}
+
+footer
+{
+	
+	background-color:#607cbd;
+	padding-top:20px;
+	padding-bottom:2%;
+	margin-left:auto;
+	margin-right: auto;
+	text-align: center;
+	letter-spacing: 2px;
+	font-size: 10px;
+	color: #ddd;
+	position:relative;
+	bottom:0;
+	
+}
