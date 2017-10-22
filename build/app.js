@@ -25808,9 +25808,11 @@ connect = function connect(data) {
 		if (TYPE == 0) {
 			if (message == "LEFT") {
 				console.log("LEFT");
+				slideshow.gotoPreviousSlide();
 			}
 			if (message == "RIGHT") {
 				console.log("RIGHT");
+				slideshow.gotoNextSlide();
 			}
 			if (message == "FULL") {
 				console.log("FULL");
