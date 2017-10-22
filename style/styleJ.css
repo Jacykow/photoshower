@@ -125,3 +125,318 @@ footer
 	color: #ddd;
 	
 }
+
+/*---responsive---*/
+/*---responsive---*/
+/*---responsive---*/
+/*---responsive---*/
+
+/*smartphone-portrait*/
+@media only screen and (max-width: 766px) and (orientation: portrait)
+{
+		body
+	{
+		font-family: 'Josefin Slab', serif;
+		/* Background pattern from Subtle Patterns */
+		background-image: url("../assets/img/escheresque.png");
+		
+		margin:0;
+	}
+
+	header
+	{
+		text-align: center;
+		background-color:#95b3d7;
+		margin-left:auto;
+		margin-right:auto;
+		padding:8px;
+		
+	}
+	
+	#logo_foto
+	{
+		height:60%;
+		width:60%;
+		
+	}
+
+	#container
+	{
+		text-align:center;
+		padding:10%;
+		
+
+
+	}
+
+	#scan
+	{
+		
+		font-size:20px;
+		border-radius: 48px 48px 48px 48px;
+	-moz-border-radius: 48px 48px 48px 48px;
+	-webkit-border-radius: 48px 48px 48px 48px;
+	border: 0px solid #000000;
+		background-color:white;
+		padding:20px;
+		
+		height:60%;
+		width:60%;
+
+	}
+	
+	.scan_photo
+	{
+		
+		height:60%;
+		width:60%;
+	}
+
+	#or
+	{
+		
+		font-size:30px;
+		border-radius: 48px 48px 48px 48px;
+	-moz-border-radius: 48px 48px 48px 48px;
+	-webkit-border-radius: 48px 48px 48px 48px;
+	border: 0px solid #000000;
+		background-color:white;
+		padding:10px;
+		margin-left:6%;
+		margin-right:6%;
+		overflow: hidden;
+		margin-top:5%;
+		margin-bottom:5%;
+		
+		
+		
+		
+	}
+
+	#enter
+	{
+		
+			border-radius: 48px 48px 48px 48px;
+	-moz-border-radius: 48px 48px 48px 48px;
+	-webkit-border-radius: 48px 48px 48px 48px;
+	border: 0px solid #000000;
+		background-color:white;
+		padding:15px;
+		overflow: hidden;
+		
+	}
+
+	input[type=text]
+	{
+		font-family: 'Josefin Slab', serif;
+		width:200px;
+		background-color:#efefef;
+		color:#666;
+		border: 2px solid #ddd;
+		border-radius: 15px;
+		font-size:15px;
+		padding:10px;
+		box-sizing:border-box; /* rowna dlugosc */
+		outline:none;
+		margin-top:10px;
+		text-align:center;
+
+		
+	}
+	input[type=submit]
+	{
+		font-family: 'Josefin Slab', serif;
+		width:200px;
+		background-color:#36b03c;
+		font-size:15px;
+		color:white;
+		padding:15px 10px;
+		margin-top:20px;
+		border:none;
+		border-radius:5px;
+		cursor: pointer;
+		letter-spacing:2px;
+		outline:none;
+	}
+
+
+
+
+	footer
+	{
+		background-color:#607cbd;
+		
+		padding-top:30px;
+		margin-left:auto;
+		margin-right: auto;
+		text-align: center;
+		padding-bottom: 10px;
+		letter-spacing: 2px;
+		font-size: 10px;
+		color: #ddd;
+		
+	}
+
+		
+		
+	
+}
+
+
+/*smartphone-landcape*/
+
+@media only screen and (max-width: 766px) and (orientation: landscape) 
+{
+	
+	body
+	{
+		font-family: 'Josefin Slab', serif;
+		/* Background pattern from Subtle Patterns */
+		background-image: url("../assets/img/escheresque.png");
+		margin:0;
+	}
+
+	header
+	{
+		text-align: center;
+		background-color:#95b3d7;
+		margin-left:auto;
+		margin-right:auto;
+		padding:8px;
+		
+	}
+	
+	#logo_foto
+	{
+		height:35%;
+		width:35%;
+		
+	}
+
+	#container
+	{
+		text-align:center;
+		
+	}
+
+	#scan
+	{
+		
+		font-size:20px;
+		border-radius: 38px 38px 38px 38px;
+	-moz-border-radius: 38px 38px 38px 38px;
+	-webkit-border-radius:38px 38px 38px 38px;
+	border: 0px solid #000000;
+		background-color:white;
+		float:left;
+		height:23%;
+		width:23%;
+
+	}
+	
+	.scan_photo
+	{
+		
+		height:50%;
+		width:50%;
+	}
+
+	#or
+	{
+		float:left;
+		font-size:30px;
+		border-radius: 48px 48px 48px 48px;
+	-moz-border-radius: 48px 48px 48px 48px;
+	-webkit-border-radius: 48px 48px 48px 48px;
+	border: 0px solid #000000;
+		background-color:white;
+		padding:10px;
+		margin-left:10%;
+		margin-right:6%;
+		overflow: hidden;
+		margin-top:12%;
+		margin-bottom:5%;
+		
+		
+		
+		
+	}
+
+	#enter
+	{
+		float:right;
+			border-radius: 48px 48px 48px 48px;
+	-moz-border-radius: 48px 48px 48px 48px;
+	-webkit-border-radius: 48px 48px 48px 48px;
+	border: 0px solid #000000;
+		background-color:white;
+		padding:15px;
+		overflow: hidden;
+		margin-top:25px;
+		
+	}
+
+	input[type=text]
+	{
+		font-family: 'Josefin Slab', serif;
+		width:200px;
+		background-color:#efefef;
+		color:#666;
+		border: 2px solid #ddd;
+		border-radius: 15px;
+		font-size:15px;
+		padding:10px;
+		box-sizing:border-box; /* rowna dlugosc */
+		outline:none;
+		margin-top:10px;
+		text-align:center;
+
+		
+	}
+	input[type=submit]
+	{
+		font-family: 'Josefin Slab', serif;
+		width:200px;
+		background-color:#36b03c;
+		font-size:15px;
+		color:white;
+		padding:15px 10px;
+		margin-top:20px;
+		border:none;
+		border-radius:5px;
+		cursor: pointer;
+		letter-spacing:2px;
+		outline:none;
+	}
+
+
+
+
+	footer
+	{
+		background-color:#607cbd;
+		
+		padding-top:30px;
+		margin-left:auto;
+		margin-right: auto;
+		text-align: center;
+		padding-bottom: 10px;
+		letter-spacing: 2px;
+		font-size: 10px;
+		color: #ddd;
+		
+	}
+
+		
+	
+	
+}
+	
+	
+	
+	
+	
+	
+	
+
+
