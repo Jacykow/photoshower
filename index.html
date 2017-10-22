@@ -71,7 +71,6 @@ class: center, middle
 		while(true) {
 			if(!$('.dropzone img').slice(i).attr('src')) break;
 			images.push($('.dropzone img').slice(i).attr('src'));
-			// text += "class: center, middle\n\n<img src="+ $('.dropzone img').slice(i).attr('src') +"/>\n\n---\n\n"
 			var pre_head = "class: center, middle\n\n";
 			var aft_head = "\n\n---\n\n";
 			var dat_base = $('.dropzone img').slice(i).attr('src');
@@ -85,7 +84,21 @@ class: center, middle
 	}
 	</script>
 
+	<div id="fakediv">hahahahah</div>
+
 		<style>
+
+#fakediv {
+	display: none; z-index: 120; position: fixed; top: 0; right:0;
+    z-index: 120;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 50px;
+    background: red;
+}
+
 .dz-image {    float: left; width: 10% }
 .dz-image img { width: 100%; }
 .dz-details,
@@ -162,8 +175,6 @@ width: 100%;
 	}
 		</style>
 	</div>
-
-
 
   </body>
 </html>
