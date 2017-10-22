@@ -75,13 +75,13 @@ http.send(params);
 return ID_FINAL;
 }
 
-function get_param(id) {
+function get_param(id, type) {
 // 13BPBRQ
 var PARAM_FINAL = "";
 	//get_code = function () {
 var http = new XMLHttpRequest();
 var url = "http://dpaste.com/" + id + ".txt";
-var params = "?our"; // tutaj json
+var params = "our=mac"; // tutaj json
 http.open("POST", url, false);
 
 //Send the proper header information along with the request
@@ -91,13 +91,13 @@ http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 // crossDomain: true
 http.onreadystatechange = function() {
 	var param_paste = http.responseText;
-	console.log("HAVE", param_paste);
-	if(http.readyState == 4 && http.status == 201)
-	{ console.log("OKAY", param_paste); PARAM_FINAL = param_paste; }
+	console.log("HAVE", param_paste, http.readyState, http.status);
+	if(http.readyState == 4 && http.status == 200)
+	{ console.log("OKAY", param_paste);
+		let X = new Buffer(PARAM_FINAL, 'base64').toString();
+		PARAM_FINAL = param_paste; bridge(X, type); }
 }
 http.send(params);
-console.log("WHAT", PARAM_FINAL);
-return new Buffer(PARAM_FINAL, 'base64').toString();
 }
 
 //};
@@ -110,16 +110,23 @@ return new Buffer(PARAM_FINAL, 'base64').toString();
 let TYPE = 1; // {0 - server; 1 - client}
 let CODES = 0, __DATA = {}; // data for client
 
-preconnect = (data) => {
-	if (TYPE == 1) {
+function bridge(data, type) {
+	console.log('BRIDGE', data, type);
+	if (type == 1) {
 		update('T1 --> CLIENT SIE LACZY');
 		connect(data); // klient wybiera serwer
 	} else {
 		update('T0 --> SERVER SIE LACZY');
 		data = JSON.parse(data);
 		connect(data["0"]); // polacz sie z serwerem
-		connect(data["1"]); // polacz sie z TYM klientem
+		connect(data["1"]); // polacz sie z TYM klientem		
 	}
+}
+
+preconnect = (id_data) => {
+	if (TYPE == 1)
+	{ get_param(id_data, 1) } else
+	{ get_param(id_data, 0) }
 }
 
 /*scanner.addListener('scan', function (content) {
