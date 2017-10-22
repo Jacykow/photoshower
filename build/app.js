@@ -25699,19 +25699,19 @@ var webrtc_config = {
 	};
 	http.send(params);
 
-	var akeys = [];
-	for (var i = 0; i < string.length; i++) {
-		akeys.push(ID_FINAL[i].charCodeAt(0));
-	}IF_FINAL = akeys;
+	//let akeys = [];
+	//for (var i = 0; i < ID_FINAL.length; i ++)
+	//	akeys.push(ID_FINAL[i].charCodeAt(0));
+	//ID_FINAL = akeys
 
 	return ID_FINAL;
 }
 
 function get_param(id, type2) {
-	var akeys = [];
-	for (var i = 0; i < string.length; i++) {
-		akeys.push(String.fromCharCode(id[i]));
-	}id = akeys;
+	//let akeys = [];
+	//for (var i = 0; i < id.length; i ++)
+	//	akeys.push(String.fromCharCode(id[i]));
+	//id = akeys
 
 	var PARAM_FINAL = "";
 	var http = new XMLHttpRequest();
