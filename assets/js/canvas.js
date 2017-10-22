@@ -67,31 +67,37 @@
             paint = true;
 			if(drawing) {
 				
-				addClick(e.clientX - offsetL, e.clientY - offsetT);
+				addClick(mouseX, mouseY);
 				redraw();
 			}
         });
 
 		canvas.addEventListener("touchstart", function(e) {
-			var mouseX = e.targetTouches[0].pageX - offsetL;
-            var mouseY = e.targetTouches[0].pageY - offsetT;
+			var touchX = e.targetTouches[0].pageX - offsetL;
+            var touchY = e.targetTouches[0].pageY - offsetT;
             paint = true;
 			if(drawing) {
-				addClick(e.targetTouches[0].pageX- offsetL, e.targetTouches[0].pageY - offsetT);
 				
+				addClick(touchX, touchY);
 				redraw();
 			}
 		});
 		
         $('#myCanvas').mousemove(function (e) {
+			var mouseX = e.clientX - offsetL;
+            var mouseY = e.clientY - offsetT;
+			
             if (paint && drawing) {
-                addClick(e.clientX -offsetL, e.clientY - offsetT, true);
+                addClick(mouseX, mouseY, true);
                 redraw();
             }
         });
 		canvas.addEventListener("touchmove", function(e) {
+			 var touchX = e.targetTouches[0].pageX - offsetL;
+             var touchY = e.targetTouches[0].pageY - offsetT;
+			
 			 if (paint && drawing) {
-                addClick(e.targetTouches[0].pageX -offsetL, e.targetTouches[0].pageY- offsetT, true);
+                addClick(touchX, touchY, true);
                 redraw();
             }
 		});
@@ -117,10 +123,13 @@
 		
 		canvas.width  = document.width || document.body.clientWidth;
 		canvas.height = document.height || document.body.clientHeight;
+		redraw();
 	}
 	
 	function addClick(x, y, dragging)
 	{
+	  x /= $(content).width();
+	  y /= $(content).height();
 	  clickX.push(x);
 	  clickY.push(y);
 	  clickDrag.push(dragging);
@@ -136,11 +145,12 @@
 		  for(var i=0; i < clickX.length; i++) {		
 			context.beginPath();
 			if(clickDrag[i] && i){
-				  context.moveTo(clickX[i-1], clickY[i-1]);
+				  
+				  context.moveTo(clickX[i-1] * $(content).width(), clickY[i-1] * $(content).height());
 				 }else{
-				   context.moveTo(clickX[i]-1, clickY[i]);
+				   context.moveTo(clickX[i] * $(content).width(), clickY[i] * $(content).height());
 				 }
-				 context.lineTo(clickX[i], clickY[i]);
+				 context.lineTo(clickX[i] * $(content).width(), clickY[i] * $(content).height());
 				 context.closePath();
 				 context.stroke();
 				 context.strokeStyle = clickColor[i];
